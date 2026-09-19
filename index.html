@@ -1,595 +1,488 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#0b1120">
-<title>سجل المحل | نظام إدارة المحل</title>
-<style>
-:root{--bg:#0a1020;--panel:#101827;--panel2:#141f32;--card:#172235;--card2:#1a2940;--border:#263750;--text:#eef4ff;--muted:#98a9c2;--primary:#4e8cff;--primary2:#74a8ff;--success:#19b77b;--warning:#f4b740;--danger:#ef5b64;--shadow:0 14px 38px rgba(0,0,0,.24);--radius:18px}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:"Tahoma","Segoe UI",Arial,sans-serif;background:radial-gradient(circle at top right,rgba(79,140,255,.08),transparent 28%),linear-gradient(135deg,#08101e,#0e1727 54%,#09111f);color:var(--text);min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}.app{display:grid;grid-template-columns:274px 1fr;min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;background:rgba(8,14,26,.96);border-left:1px solid var(--border);padding:20px 15px;display:flex;flex-direction:column;z-index:30}.brand{padding:8px 12px 20px;border-bottom:1px solid var(--border);margin-bottom:15px}.brand h1{margin:0 0 7px;font-size:25px;background:linear-gradient(135deg,#fff,#b6c9ea);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.brand p{margin:0;color:var(--muted);font-size:12px;line-height:1.8}.nav{display:grid;gap:8px}.nav-btn{border:1px solid transparent;background:transparent;color:#cbd6e9;text-align:right;padding:12px 13px;border-radius:13px;transition:.2s;display:flex;align-items:center;gap:10px}.nav-btn:hover{background:#121d30;border-color:#22324d}.nav-btn.active{background:linear-gradient(135deg,var(--primary),#18315e);color:#fff;border-color:#2f60aa;box-shadow:0 8px 22px rgba(44,102,195,.16)}.icon{width:25px;text-align:center;font-size:17px}.sidebar-footer{margin-top:auto;color:#74839b;font-size:10.5px;padding:14px 9px 0;line-height:1.8}.main{padding:21px;min-width:0}.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:19px}.topbar h2{margin:0;font-size:24px}.topbar p{margin:5px 0 0;color:var(--muted);font-size:12px}.menu-toggle{display:none;border:1px solid var(--border);background:#152036;color:#fff;border-radius:11px;width:42px;height:42px}.section{display:none;animation:fade .2s ease}.section.active{display:block}@keyframes fade{from{opacity:.2;transform:translateY(3px)}to{opacity:1;transform:none}}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:17px}.stat{background:linear-gradient(145deg,rgba(23,34,53,.96),rgba(14,24,40,.96));border:1px solid var(--border);border-radius:var(--radius);padding:17px;box-shadow:var(--shadow);min-width:0}.stat .label{font-size:11px;color:var(--muted);margin-bottom:9px}.stat .value{font-size:24px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.stat small{display:block;color:#8292aa;margin-top:7px}.green{color:#6fe0b3}.yellow{color:#ffd26a}.red{color:#ff8189}.blue{color:#80adff}.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-bottom:15px;align-items:start}.card{background:rgba(16,27,44,.93);border:1px solid var(--border);border-radius:var(--radius);padding:17px;box-shadow:var(--shadow);margin-bottom:15px}.card h3{margin:0 0 4px;font-size:16px}.card .sub{color:var(--muted);font-size:11.5px;margin-bottom:14px;display:block;line-height:1.7}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.form-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:11.5px;color:#c7d2e4}.field input,.field select,.field textarea{width:100%;border:1px solid #2a3a55;background:#0d1625;color:#edf4ff;border-radius:11px;padding:10px 11px;outline:none;transition:.2s}.field input:focus,.field select:focus,.field textarea:focus{border-color:#4c83dc;box-shadow:0 0 0 3px rgba(79,140,255,.11)}.field input[readonly]{background:#17243a;color:#93bfff;font-weight:800}.field select:disabled,.field input:disabled,.field textarea:disabled{opacity:.58;cursor:not-allowed}.field textarea{min-height:82px;resize:vertical}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.btn{border:1px solid var(--border);background:#152036;color:#dfe9f8;padding:9px 13px;border-radius:11px;font-weight:700}.btn:hover{filter:brightness(1.08)}.btn.primary{background:var(--primary);border-color:var(--primary);color:#fff}.btn.success{background:linear-gradient(135deg,#159c6b,#117c55);border-color:#1bbd85;color:#fff}.btn.danger{background:linear-gradient(135deg,#d74f5b,#b63642);border-color:#e8616b;color:#fff}.btn.warning{background:linear-gradient(135deg,#c78b1c,#a66f0f);border-color:#f4b740;color:#fff}.btn.ghost{background:transparent;border-color:#2a3953}.btn.small{padding:6px 9px;font-size:10.5px}.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:760px}.table th,.table td{border-bottom:1px solid #233149;padding:10px 8px;text-align:right;font-size:11.5px;white-space:nowrap;vertical-align:middle}.table th{color:#aebbd0;font-weight:700;background:#131e30;position:sticky;top:0;z-index:1}.table tr:hover td{background:#111d2f}.badge{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;font-size:9.5px;font-weight:700}.badge.success{background:rgba(25,183,123,.12);color:#6fe0b3}.badge.warning{background:rgba(244,183,64,.12);color:#ffd26a}.badge.danger{background:rgba(239,91,100,.12);color:#ff8189}.badge.info{background:rgba(79,140,255,.12);color:#80adff}.mini-list{display:grid;gap:8px}.mini-item{display:flex;justify-content:space-between;gap:8px;padding:9px 10px;border:1px solid #22314a;border-radius:11px;background:#101a2a;font-size:11.5px}.mini-item span:last-child{font-weight:800}.notice{padding:10px 12px;border:1px solid #30466c;background:#0f1e37;border-radius:11px;color:#b9cae7;font-size:11.5px;line-height:1.8;margin-top:10px}.empty{color:#7e8da4;text-align:center;padding:22px 10px;font-size:11.5px}.summary-bar{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:11px}.summary-bar strong{font-size:14px}.pill{padding:6px 9px;border-radius:999px;background:#111f35;border:1px solid #293b58;color:#b9c8df;font-size:10.5px}.filter-bar{display:grid;grid-template-columns:1.4fr repeat(4,minmax(110px,1fr));gap:9px;margin-bottom:12px}.filter-bar .field{min-width:0}.search-input{background:#0d1625;border:1px solid #2a3953;color:#edf4ff;border-radius:11px;padding:10px 11px;width:100%;outline:none}.search-input:focus{border-color:#4c83dc;box-shadow:0 0 0 3px rgba(79,140,255,.11)}.modal{position:fixed;inset:0;background:rgba(3,7,15,.72);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;padding:18px;z-index:100}.modal-box{width:min(900px,100%);max-height:92vh;overflow:auto;background:#101a2a;border:1px solid #30415d;border-radius:20px;box-shadow:0 25px 80px rgba(0,0,0,.48);padding:19px}.modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}.modal-head h3{margin:0;font-size:18px}.close-btn{border:1px solid #2b3b56;background:#162238;color:#fff;width:38px;height:38px;border-radius:10px}.report-controls{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:15px}.report-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.report-box{padding:14px;border:1px solid #263750;background:#111d2f;border-radius:14px}.report-box .label{font-size:10.5px;color:var(--muted);margin-bottom:6px}.report-box .value{font-size:20px;font-weight:800}.report-section-title{font-size:13px;margin:15px 0 9px}.backup-info{font-size:10.5px;color:#7f8da5;margin-top:8px;line-height:1.7}.customer-info{font-size:10px;color:#7c8ca4;line-height:1.7}.danger-text{color:#ff8a90}.positive-text{color:#6fe0b3}.edit-highlight{background:rgba(79,140,255,.07);border:1px dashed #345684;padding:11px;border-radius:12px;margin-bottom:12px}.inline-check{display:flex;align-items:center;gap:7px;color:#c5d1e4;font-size:11px}.inline-check input{accent-color:#4f8cff}.mobile-nav{display:none}
-@media(max-width:1100px){.stats{grid-template-columns:repeat(2,1fr)}.grid-2{grid-template-columns:1fr}.form-grid.three{grid-template-columns:repeat(2,minmax(0,1fr))}.report-grid{grid-template-columns:repeat(2,1fr)}.filter-bar{grid-template-columns:1fr 1fr 1fr}}
-@media(max-width:800px){.app{display:block}.sidebar{position:fixed;inset:0 auto 0 0;width:280px;transform:translateX(-105%);transition:.25s;border-left:none;border-right:1px solid var(--border);box-shadow:20px 0 40px rgba(0,0,0,.35)}body.menu-open .sidebar{transform:translateX(0)}.main{padding:14px}.menu-toggle{display:block}.topbar h2{font-size:20px}.form-grid,.form-grid.three{grid-template-columns:1fr}.filter-bar{grid-template-columns:1fr 1fr}.mobile-nav{display:block;position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:29;opacity:0;pointer-events:none;transition:.2s}.mobile-nav.show{opacity:1;pointer-events:auto}}
-@media(max-width:520px){.stats{grid-template-columns:1fr}.card{padding:14px}.topbar p{font-size:10.5px}.stat .value{font-size:21px}.report-controls,.report-grid{grid-template-columns:1fr}.filter-bar{grid-template-columns:1fr}.actions .btn{width:100%}.actions .btn.small{width:auto}}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b0d12">
+    <meta name="description" content="تم إغلاق الموقع نهائياً">
+    <title>تم إغلاق الموقع نهائياً</title>
 
-/* ===== V3 + V4 ===== */
-.welcome-overlay{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;padding:18px;background:radial-gradient(circle at 20% 20%,rgba(93,143,255,.18),transparent 30%),radial-gradient(circle at 80% 80%,rgba(25,183,123,.10),transparent 28%),rgba(4,8,17,.95);backdrop-filter:blur(10px);overflow:auto}.welcome-overlay.hidden{display:none}.welcome-shell{width:min(860px,100%);position:relative;background:linear-gradient(145deg,rgba(17,29,48,.97),rgba(10,18,31,.99));border:1px solid #304362;border-radius:28px;box-shadow:0 35px 120px rgba(0,0,0,.55);padding:28px;overflow:hidden;animation:welcomeIn .55s cubic-bezier(.2,.8,.2,1)}.welcome-orb{position:absolute;border-radius:50%;pointer-events:none}.orb-a{width:190px;height:190px;right:-75px;top:-75px;background:radial-gradient(circle,#4f8cff55,transparent 68%);animation:floatOrb 5s ease-in-out infinite}.orb-b{width:230px;height:230px;left:-105px;bottom:-125px;background:radial-gradient(circle,#19b77b38,transparent 68%);animation:floatOrb 7s ease-in-out infinite reverse}.welcome-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:center;position:relative;z-index:1}.welcome-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border-radius:999px;border:1px solid #2f4b73;background:#0e1b2f;color:#9fc1ff;font-size:10px;margin-bottom:14px}.welcome-title{font-size:clamp(38px,7vw,68px);font-weight:900;line-height:1;margin:0 0 14px;background:linear-gradient(135deg,#fff,#9fc1ff 62%,#79e0b7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.welcome-text{margin:0;color:#c1cde0;line-height:2;font-size:14px}.welcome-warning{margin-top:15px;padding:13px 15px;border:1px solid rgba(244,183,64,.36);background:rgba(244,183,64,.075);border-radius:14px;color:#f6db92;font-size:11.5px;line-height:1.9}.welcome-actions{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:20px}.welcome-check{display:flex;align-items:center;gap:7px;color:#9fafc5;font-size:10.5px;margin-top:11px}.welcome-check input{accent-color:#4f8cff}.welcome-visual{min-height:290px;border:1px solid #29405f;border-radius:24px;background:linear-gradient(145deg,#101f35,#0c1626);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}.visual-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(124,160,214,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(124,160,214,.08) 1px,transparent 1px);background-size:26px 26px;mask-image:linear-gradient(to bottom,black,transparent)}.visual-ring{width:170px;height:170px;border-radius:50%;border:1px solid #4774ae66;box-shadow:0 0 0 20px #4774ae12,0 0 0 40px #4774ae08;animation:ringPulse 3s ease-out infinite}.visual-center{position:absolute;width:94px;height:94px;border-radius:24px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#4f8cff,#285bb9);box-shadow:0 20px 45px rgba(57,115,217,.36);font-size:42px;animation:floatCard 3.3s ease-in-out infinite}.visual-dot{position:absolute;width:9px;height:9px;border-radius:50%;background:#80adff;box-shadow:0 0 18px #80adff;animation:dotMove 4s linear infinite}.dot-1{top:26%;left:24%}.dot-2{top:70%;right:19%;animation-delay:1.1s}.dot-3{top:38%;right:12%;animation-delay:2.1s}.setup-panel{position:relative;z-index:2;display:none}.setup-panel.active{display:block}.welcome-panel.hidden-panel{display:none}.setup-head{margin-bottom:15px}.setup-head h3{font-size:22px;margin:0 0 7px}.setup-head p{margin:0;color:var(--muted);font-size:11.5px;line-height:1.8}.setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.setup-grid .field.full{grid-column:1/-1}.logo-box{display:flex;align-items:center;gap:13px;padding:12px;border:1px dashed #355071;border-radius:14px;background:#0d1828}.logo-preview{width:64px;height:64px;border-radius:18px;background:linear-gradient(145deg,#1f3f76,#142b54);display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:27px;font-weight:900;color:#b9d0f6;border:1px solid #3d5d87;flex:0 0 auto}.logo-preview img{width:100%;height:100%;object-fit:cover}.logo-meta{min-width:0}.logo-meta strong{display:block;font-size:12px;margin-bottom:5px}.logo-meta span{display:block;color:var(--muted);font-size:10px;line-height:1.7}.profile-banner{display:flex;justify-content:space-between;gap:15px;align-items:center;padding:17px 18px;border:1px solid #29405e;border-radius:18px;background:linear-gradient(135deg,rgba(24,48,82,.76),rgba(13,25,42,.95));margin-bottom:16px;overflow:hidden;position:relative}.profile-banner:after{content:'';position:absolute;width:170px;height:170px;border-radius:50%;left:-65px;top:-75px;background:radial-gradient(circle,rgba(79,140,255,.16),transparent 70%)}.profile-main{display:flex;align-items:center;gap:13px;min-width:0;position:relative;z-index:1}.profile-avatar{width:60px;height:60px;border-radius:18px;background:linear-gradient(145deg,#4f8cff,#234f9e);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;overflow:hidden;flex:0 0 auto;box-shadow:0 10px 28px rgba(36,93,183,.28)}.profile-avatar img{width:100%;height:100%;object-fit:cover}.profile-copy{min-width:0}.profile-copy h3{margin:0;font-size:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.profile-copy p{margin:5px 0 0;color:#9eb0ca;font-size:11.5px}.profile-actions{position:relative;z-index:1}.settings-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:16px}.setting-section-title{font-size:13px;margin:20px 0 10px}.backup-status{padding:13px 14px;border-radius:14px;border:1px solid #29405f;background:#0e1a2b}.backup-status.good{border-color:#28664f;background:rgba(25,183,123,.07)}.backup-status.warn{border-color:#71561e;background:rgba(244,183,64,.07)}.backup-status strong{display:block;font-size:13px;margin-bottom:5px}.backup-status span{font-size:10.5px;color:#9aabc3;line-height:1.8}.backup-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.danger-zone{border-color:#553138;background:rgba(100,20,34,.09)}.danger-zone h3{color:#ff8e95}.confirm-code{font-weight:800;letter-spacing:2px;text-align:center}.version-badge{display:inline-flex;padding:5px 8px;border-radius:999px;background:#11213a;border:1px solid #294363;color:#91b5ea;font-size:9.5px}.reminder-banner{margin-bottom:15px;padding:11px 13px;border:1px solid rgba(244,183,64,.35);background:rgba(244,183,64,.07);border-radius:13px;color:#efd78e;font-size:11px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.reminder-banner strong{font-size:11.5px}.intro-note{margin-top:8px;color:#73839a;font-size:10px;line-height:1.7}@keyframes welcomeIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}@keyframes floatOrb{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(12px,-10px,0)}}@keyframes ringPulse{0%{transform:scale(.82);opacity:.3}55%{transform:scale(1);opacity:1}100%{transform:scale(1.12);opacity:0}}@keyframes floatCard{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-9px) rotate(1.5deg)}}@keyframes dotMove{0%{transform:translate(0,0);opacity:.3}50%{transform:translate(35px,-20px);opacity:1}100%{transform:translate(0,0);opacity:.3}}@media(max-width:850px){.welcome-grid,.settings-grid{grid-template-columns:1fr}.welcome-visual{min-height:220px}.setup-grid{grid-template-columns:1fr}.setup-grid .field.full{grid-column:auto}.profile-banner{align-items:flex-start;flex-direction:column}.backup-actions{grid-template-columns:1fr 1fr}}@media(max-width:520px){.welcome-shell{padding:19px;border-radius:22px}.welcome-title{font-size:46px}.welcome-text{font-size:12.5px}.welcome-warning{font-size:10.5px}.welcome-actions .btn{width:100%}.backup-actions{grid-template-columns:1fr}.profile-copy h3{font-size:17px}}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* ===== V5 + V6 + V7 ===== */
-.global-search{display:flex;gap:8px;margin-bottom:15px}.global-search input{flex:1;min-width:0}.global-search button{flex:0 0 auto}.search-results{display:grid;gap:8px;margin-top:10px}.customer-card{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px;border:1px solid #263750;background:#111d2f;border-radius:14px}.customer-main{min-width:0}.customer-main strong{display:block;font-size:13px}.customer-main span{display:block;color:var(--muted);font-size:10.5px;line-height:1.7}.customer-actions{display:flex;gap:6px;flex-wrap:wrap}.activity-item{display:grid;grid-template-columns:auto 1fr auto;gap:11px;align-items:center;padding:11px 12px;border:1px solid #253650;background:#101b2c;border-radius:12px}.activity-dot{width:9px;height:9px;border-radius:50%;background:#80adff;box-shadow:0 0 12px rgba(128,173,255,.35)}.activity-dot.success{background:#6fe0b3}.activity-dot.danger{background:#ff8189}.activity-dot.warning{background:#ffd26a}.activity-text strong{display:block;font-size:11.5px}.activity-text span{display:block;color:#8090aa;font-size:9.5px;margin-top:3px;line-height:1.6}.activity-time{font-size:9.5px;color:#8291a8;white-space:nowrap}.trend-chart{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(22px,1fr);align-items:end;gap:6px;height:170px;padding:14px 8px 8px;border:1px solid #253650;background:#0e1827;border-radius:14px;overflow:auto}.trend-day{display:flex;flex-direction:column;align-items:center;justify-content:end;height:100%;gap:5px;min-width:22px}.trend-bar{width:100%;max-width:24px;min-height:3px;background:linear-gradient(to top,#356fd0,#80adff);border-radius:7px 7px 3px 3px;box-shadow:0 4px 14px rgba(79,140,255,.12)}.trend-value{font-size:8px;color:#9eb1cc}.trend-label{font-size:8px;color:#6f8098;white-space:nowrap}.settings-v7{margin-top:16px}.color-row{display:flex;align-items:center;gap:10px}.color-row input[type=color]{width:48px;height:38px;padding:2px;border:1px solid #30415c;border-radius:10px;background:#0d1625}.demo-box{border:1px solid #3a315d;background:linear-gradient(135deg,rgba(108,75,176,.08),rgba(36,71,133,.08));border-radius:16px;padding:14px}.demo-box h4{margin:0 0 6px}.demo-box p{margin:0;color:#9caac0;font-size:10.5px;line-height:1.8}.demo-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.compact-mode .card{padding:12px}.compact-mode .stat{padding:12px}.compact-mode .table th,.compact-mode .table td{padding:7px}.no-animations *, .no-animations *::before, .no-animations *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.customer-modal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.quick-kpi{padding:12px;border:1px solid #263750;background:#111d2f;border-radius:12px}.quick-kpi .label{font-size:9.5px;color:var(--muted);margin-bottom:5px}.quick-kpi .value{font-size:17px;font-weight:800}@media(max-width:700px){.customer-modal-grid{grid-template-columns:1fr}.activity-item{grid-template-columns:auto 1fr}.activity-time{grid-column:2}.global-search{flex-direction:column}.customer-card{align-items:flex-start;flex-direction:column}.customer-actions{width:100%}.customer-actions .btn{flex:1}.trend-chart{grid-auto-columns:20px}}
+        :root {
+            --bg: #080a0f;
+            --card: rgba(18, 21, 29, 0.78);
+            --border: rgba(255, 255, 255, 0.09);
+            --text: #f4f6f8;
+            --muted: #9ba3af;
+            --accent: #7c3aed;
+            --accent-light: #a78bfa;
+            --danger: #ef4444;
+        }
 
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
 
-.settings-v9 .intro-note{display:block;margin-top:10px;line-height:1.7}
-.supplier-manage-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border:1px solid #253650;background:#101b2c;border-radius:12px}.supplier-manage-main{min-width:0}.supplier-manage-main strong{display:block;font-size:12px}.supplier-manage-main span{display:block;color:#7f8ea6;font-size:10px;margin-top:3px}.supplier-manage-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.supplier-toggle{display:flex;align-items:center;gap:6px;font-size:10px;color:#c4d0e2}@media(max-width:520px){.supplier-manage-row{align-items:flex-start;flex-direction:column}.supplier-manage-actions{width:100%;justify-content:space-between}}
-.settings-v11{margin-top:16px}
+        body {
+            font-family:
+                "Segoe UI",
+                Tahoma,
+                Arial,
+                sans-serif;
 
+            background:
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(124, 58, 237, 0.13),
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at 80% 80%,
+                    rgba(59, 130, 246, 0.09),
+                    transparent 30%
+                ),
+                var(--bg);
 
-.support-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.support-card{background:#0f1b2c}.section#support a.btn{display:inline-flex;text-decoration:none;align-items:center;justify-content:center}.creator-mark{position:fixed;right:16px;bottom:16px;z-index:80;display:flex;align-items:center;gap:9px;padding:8px 11px;border:1px solid rgba(116,168,255,.42);border-radius:14px;background:linear-gradient(145deg,rgba(13,24,42,.94),rgba(9,16,28,.94));box-shadow:0 12px 30px rgba(0,0,0,.34),0 0 0 1px rgba(116,168,255,.05);backdrop-filter:blur(9px);pointer-events:none;animation:creatorFloat 4s ease-in-out infinite}.creator-mark:before{content:'';position:absolute;inset:-2px;border-radius:16px;border:1px solid rgba(116,168,255,.18);animation:creatorPulse 2.8s ease-in-out infinite}.creator-spark{width:26px;height:26px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#4f8cff,#285bb9);color:#fff;font-size:13px;box-shadow:0 6px 16px rgba(57,115,217,.35);animation:creatorSpin 5s linear infinite}.creator-mark small{display:block;color:#7f92ae;font-size:8.5px;line-height:1.2}.creator-mark strong{display:block;color:#d9e7ff;font-size:10.5px;line-height:1.4;white-space:nowrap}@keyframes creatorFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}@keyframes creatorPulse{0%,100%{opacity:.25;transform:scale(1)}50%{opacity:.85;transform:scale(1.02)}}@keyframes creatorSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}@media(max-width:700px){.support-grid{grid-template-columns:1fr}.creator-mark{right:10px;bottom:10px;padding:7px 9px}.creator-mark strong{font-size:9.5px}.creator-mark small{font-size:7.5px}}
-</style>
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* الخلفية المتحركة */
+        .background {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.18;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        .orb.one {
+            width: 280px;
+            height: 280px;
+            background: #7c3aed;
+            top: -100px;
+            right: -80px;
+        }
+
+        .orb.two {
+            width: 220px;
+            height: 220px;
+            background: #2563eb;
+            bottom: -80px;
+            left: -60px;
+            animation-delay: -4s;
+        }
+
+        .orb.three {
+            width: 150px;
+            height: 150px;
+            background: #ef4444;
+            top: 45%;
+            left: 45%;
+            opacity: 0.06;
+            animation-delay: -7s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(20px, -25px) scale(1.08);
+            }
+        }
+
+        /* المحتوى */
+        .container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 680px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 48px 38px 32px;
+            text-align: center;
+
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.45),
+                inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+            animation: cardIn 0.8s ease forwards;
+        }
+
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translateY(25px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* الأيقونة */
+        .icon-wrapper {
+            width: 92px;
+            height: 92px;
+            margin: 0 auto 26px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(239, 68, 68, 0.16),
+                    rgba(124, 58, 237, 0.12)
+                );
+
+            border: 1px solid rgba(239, 68, 68, 0.18);
+
+            box-shadow:
+                0 0 45px rgba(239, 68, 68, 0.10);
+
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .icon {
+            font-size: 38px;
+            line-height: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 35px rgba(239, 68, 68, 0.08);
+            }
+
+            50% {
+                transform: scale(1.04);
+                box-shadow: 0 0 55px rgba(239, 68, 68, 0.16);
+            }
+        }
+
+        /* النص */
+        .badge {
+            display: inline-block;
+            padding: 7px 14px;
+            margin-bottom: 17px;
+
+            border-radius: 50px;
+
+            background: rgba(239, 68, 68, 0.09);
+            border: 1px solid rgba(239, 68, 68, 0.15);
+
+            color: #fca5a5;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: clamp(30px, 6vw, 46px);
+            line-height: 1.25;
+            margin-bottom: 18px;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #ffffff,
+                    #d7dbe2,
+                    #a78bfa
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .main-text {
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 2;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .divider {
+            width: 70px;
+            height: 1px;
+            margin: 30px auto;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(167, 139, 250, 0.7),
+                    transparent
+                );
+        }
+
+        .thanks {
+            color: #d7dbe2;
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        /* التواصل */
+        .contact-box {
+            margin-top: 28px;
+            padding: 18px;
+
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 18px;
+        }
+
+        .contact-title {
+            color: #e5e7eb;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+
+        .contacts {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 9px;
+        }
+
+        .contact {
+            text-decoration: none;
+            color: #cbd5e1;
+
+            padding: 9px 13px;
+
+            border-radius: 10px;
+
+            background: rgba(255, 255, 255, 0.035);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+
+            font-size: 12px;
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .contact:hover {
+            transform: translateY(-2px);
+            background: rgba(124, 58, 237, 0.10);
+            border-color: rgba(167, 139, 250, 0.25);
+        }
+
+        /* الفوتر */
+        footer {
+            margin-top: 30px;
+            padding-top: 20px;
+
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+            color: #717987;
+            font-size: 11px;
+            letter-spacing: 0.2px;
+        }
+
+        .designer {
+            color: #a78bfa;
+            font-weight: 600;
+        }
+
+        /* الموبايل */
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+
+            .card {
+                padding: 38px 22px 25px;
+                border-radius: 23px;
+            }
+
+            .icon-wrapper {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 22px;
+            }
+
+            .icon {
+                font-size: 32px;
+            }
+
+            h1 {
+                font-size: 31px;
+            }
+
+            .main-text {
+                font-size: 14px;
+                line-height: 2;
+            }
+
+            .thanks {
+                font-size: 13px;
+            }
+
+            .contact {
+                width: 100%;
+            }
+        }
+
+        /* تقليل الحركة لمن يفضل ذلك */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
 </head>
+
 <body>
-<div class="app">
-<aside class="sidebar">
-  <div class="brand"><h1 id="brandStoreName">سجل المحل</h1><p id="brandStoreSub">نظام إدارة الصيانة والحسابات اليومية.</p></div>
-  <nav class="nav">
-    <button class="nav-btn active" data-section="dashboard"><span class="icon">⌂</span>لوحة القيادة</button>
-    <button class="nav-btn" data-section="repairs"><span class="icon">🔧</span>سجل الصيانة</button>
-    <button class="nav-btn" data-section="customers"><span class="icon">👥</span>الزبائن</button>
-    <button class="nav-btn" data-section="cashbox"><span class="icon">💰</span>صندوق المحل</button>
-    <button class="nav-btn" data-section="suppliers"><span class="icon">📦</span>حسابات الموردين</button>
-    <button class="nav-btn" data-section="expenses"><span class="icon">🧾</span>المصاريف</button>
-    <button class="nav-btn" data-section="reports"><span class="icon">📊</span>التقارير</button>
-    <button class="nav-btn" data-section="activity"><span class="icon">🕘</span>سجل النشاط</button>
-    <button class="nav-btn" data-section="losses"><span class="icon">⚠</span>سجل الخسائر</button>
-    <button class="nav-btn" data-section="settings"><span class="icon">⚙</span>الإعدادات والنسخ الاحتياطي</button>
-    <button class="nav-btn" data-section="support"><span class="icon">✦</span>التواصل مع الدعم</button>
-  </nav>
-  <div class="sidebar-footer">
-    <div style="margin-bottom:16px;display:flex;gap:7px;flex-direction:column">
-      <button id="btnExport" class="btn ghost small" style="width:100%"><span class="icon">📥</span>حفظ نسخة احتياطية</button>
-      <label class="btn ghost small" style="width:100%;cursor:pointer;text-align:center;display:flex;align-items:center;justify-content:center;gap:7px"><span class="icon">📤</span>استعادة البيانات<input type="file" id="fileImport" accept=".json" class="hidden"></label>
+
+    <div class="background">
+        <div class="orb one"></div>
+        <div class="orb two"></div>
+        <div class="orb three"></div>
     </div>
-    التخزين المحلي يحفظ بيانات النظام على هذا الجهاز. احتفظ بنسخ احتياطية دورية لحماية بياناتك.
-    <div class="backup-info" id="lastBackupText">حالة النسخة الاحتياطية ستظهر هنا.</div>
-  </div>
-</aside>
-<div class="mobile-nav" id="mobileNav"></div>
-<main class="main">
-  <div class="topbar"><div><h2 id="pageTitle">لوحة القيادة</h2><p id="todayText"></p></div><div style="display:flex;align-items:center;gap:8px"><button class="menu-toggle" id="menuToggle">☰</button></div></div>
 
-  <div class="card" id="globalSearchCard"><div class="summary-bar"><div><h3>بحث سريع</h3><span class="sub">ابحث باسم الزبون أو رقم الهاتف أو الجهاز في جميع السجلات.</span></div></div><div class="global-search"><input id="globalSearchInput" class="search-input" placeholder="اكتب اسم الزبون، رقم الهاتف أو اسم الجهاز..."><button class="btn primary" id="globalSearchBtn" type="button">بحث</button></div><div id="globalSearchResults" class="search-results"></div></div>
-  <section id="dashboard" class="section active">
-    <div id="backupReminder" class="reminder-banner hidden"><span><strong>تذكير بالنسخة الاحتياطية:</strong> <span id="backupReminderText"></span></span><button class="btn warning small" type="button" onclick="performBackup()">إنشاء نسخة الآن</button></div>
-    <div class="profile-banner"><div class="profile-main"><div class="profile-avatar" id="dashboardLogo">س</div><div class="profile-copy"><h3 id="dashboardStoreName">سجل المحل</h3><p id="dashboardStoreMeta">نظام إدارة محل الصيانة والحسابات</p></div></div><div class="profile-actions"><button class="btn ghost small" type="button" onclick="activateSection('settings')">تخصيص المحل</button></div></div>
-    <div class="stats">
-      <div class="stat"><div class="label">النقد المتوفر في الصندوق</div><div class="value blue" id="statCash">0 د.ع</div><small>المقبوضات − المدفوعات</small></div>
-      <div class="stat"><div class="label">إجمالي ديون الزبائن (الما واصلة)</div><div class="value yellow" id="statCustomerDebt">0 د.ع</div><small>المبالغ المتبقية على الزبائن</small></div>
-      <div class="stat"><div class="label">إجمالي الديون للموردين</div><div class="value red" id="statSupplierDebt">0 د.ع</div><small>القطع المسجلة بالدين − المسدد</small></div>
-      <div class="stat"><div class="label">صافي أرباح الصيانة</div><div class="value green" id="statProfit">0 د.ع</div><small>بعد خصم القطع والنقل والخسائر</small></div>
-    </div>
-    <div class="grid-2" style="grid-template-columns:1.1fr .9fr">
-      <div class="card"><h3>ملخص العمل</h3><span class="sub">مؤشرات فورية من السجلات الحالية.</span><div class="mini-list" id="dashboardSummary"></div></div>
-      <div class="card"><h3>آخر عمليات الصيانة</h3><span class="sub">آخر 5 أجهزة تمت إضافتها.</span><div class="mini-list" id="recentRepairs"></div></div>
-    </div>
-    <div class="card"><div class="summary-bar"><div><h3>ملخص الفترة الحالية</h3><span class="sub">نظرة سريعة على النقد والربح والديون.</span></div></div><div class="report-grid" id="dashboardFinancial"></div></div>
-  </section>
+    <main class="container">
 
-  <section id="repairs" class="section">
-    <div class="grid-2">
-      <div class="card">
-        <h3 id="repairFormTitle">إضافة جهاز جديد</h3><span class="sub">أدخل بيانات العملية وسيُحسب الربح الصافي فورياً.</span>
-        <div id="editNotice" class="edit-highlight hidden">أنت الآن تعدّل عملية صيانة. يمكنك إلغاء التعديل والعودة لإضافة عملية جديدة.</div>
-        <form id="repairForm">
-          <div class="form-grid">
-            <div class="field"><label>اسم الزبون</label><input id="customerName" required placeholder="مثال: محمد علي"></div>
-            <div class="field"><label>رقم الهاتف</label><input id="customerPhone" type="tel" inputmode="tel" placeholder="مثال: 07xxxxxxxxx"></div>
-            <div class="field"><label>نوع الجهاز وموديله</label><input id="device" required placeholder="مثال: Samsung A52"></div>
-            <div class="field"><label>نوع العطل</label><input id="fault" required placeholder="مثال: تبديل شاشة"></div>
-            <div class="field full"><label>ملاحظات الاستلام</label><textarea id="intakeNotes" placeholder="حالة الجهاز، الخدوش، الملحقات أو أي ملاحظة عند الاستلام"></textarea></div>
-            <div class="field"><label>سعر القطعة (د.ع)</label><input id="partPrice" type="number" min="0" step="1" value="0" required></div>
-            <div class="field"><label>حالة القطعة</label><select id="partStatus"><option value="debt">بالدين</option><option value="cash">نقد</option></select></div>
-            <div class="field" id="supplierField"><label>اسم المورد</label><select id="supplier"></select></div>
-            <div class="field"><label>أجور التوصيل (د.ع)</label><input id="delivery" type="number" min="0" step="1" value="0"></div>
-            <div class="field"><label>الحساب الكامل للزبون (د.ع)</label><input id="customerTotal" type="number" min="0" step="1" value="0" required></div>
-            <div class="field"><label>الربح الصافي (د.ع)</label><input id="netProfit" type="number" readonly value="0"></div>
-            <div class="field"><label>حالة الجهاز</label><select id="deviceStatus"><option value="done">كمل</option><option value="pending">بعده</option></select></div>
-            <div class="field"><label>حالة الدفع</label><select id="paymentStatus"><option value="paid">واصل</option><option value="unpaid">ما واصل</option><option value="partial">واصل جزئي</option></select></div>
-            <div class="field"><label>المبلغ الواصل من الزبون (د.ع)</label><input id="paidAmount" type="number" min="0" step="1" value="0"></div>
-            <div class="field"><label>التاريخ واليوم</label><input id="repairDate" type="date" required></div>
-          </div>
-          <div class="actions"><button class="btn primary" type="submit" id="repairSubmitBtn">حفظ العملية</button><button class="btn ghost hidden" type="button" id="cancelEditBtn">إلغاء التعديل</button><button class="btn ghost" type="reset">تفريغ</button></div>
-        </form>
-      </div>
-      <div class="card">
-        <h3>تسديد دين زبون (الما واصل)</h3><span class="sub">تسديد المبالغ المتبقية على الزبائن وتسجيل كل دفعة منفصلة.</span>
-        <form id="customerDebtForm">
-          <div class="form-grid" style="grid-template-columns:1fr">
-            <div class="field"><label>الجهاز / الزبون المطلوب</label><select id="debtRepairSelect" required></select></div>
-            <div class="field"><label>المبلغ المسدد (د.ع)</label><input id="debtPayAmount" type="number" min="1" required></div>
-            <div class="field"><label>التاريخ</label><input id="debtPayDate" type="date" required></div>
-          </div>
-          <div class="actions"><button class="btn success" type="submit">تسديد الدفعة للصندوق</button></div>
-        </form>
-        <div class="notice">كل دفعة تُحفظ كسجل مستقل ويمكن مراجعتها من كشف دفعات الزبون داخل العملية.</div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="summary-bar"><div><h3>سجل الصيانة</h3><span class="sub">البحث والفلترة والتعديل والحذف.</span></div><span class="pill" id="repairCount">0 عملية</span></div>
-      <div class="filter-bar">
-        <input class="search-input" id="repairSearch" placeholder="بحث باسم الزبون، الهاتف، الجهاز أو العطل...">
-        <div class="field"><select id="repairPaymentFilter"><option value="all">كل حالات الدفع</option><option value="paid">واصل</option><option value="partial">جزئي</option><option value="unpaid">ما واصل</option></select></div>
-        <div class="field"><select id="repairDeviceFilter"><option value="all">كل حالات الجهاز</option><option value="done">كمل</option><option value="pending">بعده</option></select></div>
-        <div class="field"><input id="repairFromDate" type="date" title="من تاريخ"></div>
-        <div class="field"><input id="repairToDate" type="date" title="إلى تاريخ"></div>
-      </div>
-      <div class="table-wrap"><table class="table"><thead><tr><th>الزبون</th><th>الهاتف</th><th>الجهاز</th><th>العطل</th><th>القطعة</th><th>الحساب</th><th>الواصل</th><th>الباقي</th><th>الربح</th><th>الحالة</th><th>التاريخ</th><th></th></tr></thead><tbody id="repairsBody"></tbody></table></div>
-      <div id="repairsEmpty" class="empty">لا توجد عمليات مطابقة.</div>
-    </div>
-    <div class="card" id="customerPaymentsCard"><div class="summary-bar"><div><h3>كشف دفعات الزبائن</h3><span class="sub">كل دفعات الزبائن المسجلة، بما فيها الدفعات الجزئية والمتأخرة.</span></div></div><div class="table-wrap"><table class="table"><thead><tr><th>الزبون</th><th>الجهاز</th><th>الهاتف</th><th>الدفعة</th><th>التاريخ</th><th>طريقة التسجيل</th></tr></thead><tbody id="customerPaymentsBody"></tbody></table></div><div id="customerPaymentsEmpty" class="empty">لا توجد دفعات مسجلة.</div></div>
-  </section>
+        <section class="card">
 
-  <section id="cashbox" class="section">
-    <div class="stats"><div class="stat"><div class="label">الرصيد الحالي</div><div class="value blue" id="cashCurrent">0 د.ع</div><small>حركة الصندوق الحالية</small></div><div class="stat"><div class="label">إجمالي المقبوضات</div><div class="value green" id="cashIn">0 د.ع</div><small>النقد الداخل</small></div><div class="stat"><div class="label">إجمالي المدفوعات</div><div class="value red" id="cashOut">0 د.ع</div><small>النقد الخارج</small></div></div>
-    <div class="grid-2">
-      <div class="card"><h3>تسجيل مقبوضة</h3><span class="sub">نقد داخل الصندوق من الزبائن أو غيرهم.</span><form id="cashInForm"><div class="form-grid"><div class="field"><label>المبلغ (د.ع)</label><input id="cashInAmount" type="number" min="1" required></div><div class="field"><label>البيان</label><input id="cashInNote" required placeholder="مثال: دفعة صيانة A52"></div><div class="field"><label>التاريخ</label><input id="cashInDate" type="date" required></div></div><div class="actions"><button class="btn success" type="submit">تسجيل المقبوضة</button></div></form></div>
-      <div class="card"><h3>تسجيل مدفوع / سحب</h3><span class="sub">يُخصم مباشرة من رصيد الصندوق.</span><form id="cashOutForm"><div class="form-grid"><div class="field"><label>المبلغ (د.ع)</label><input id="cashOutAmount" type="number" min="1" required></div><div class="field"><label>نوع السحب</label><select id="cashOutType"><option value="owner">سحب شخصي</option><option value="partner">سحب شخصي للشريك</option><option value="parts">شراء قطع غيار نقدية</option><option value="delivery">دفع أجور توصيل</option><option value="other">مصروف آخر</option></select></div><div class="field"><label>البيان</label><input id="cashOutNote" placeholder="اختياري"></div><div class="field"><label>التاريخ</label><input id="cashOutDate" type="date" required></div></div><div class="actions"><button class="btn danger" type="submit">تسجيل السحب</button></div></form></div>
-    </div>
-    <div class="card"><h3>حركة الصندوق</h3><span class="sub">المقبوضات والمدفوعات المسجلة. الحركات الآلية مرتبطة بالعملية التي أنشأتها.</span><div class="table-wrap"><table class="table"><thead><tr><th>النوع</th><th>المبلغ</th><th>البيان</th><th>التاريخ</th><th>المصدر</th><th></th></tr></thead><tbody id="cashBody"></tbody></table></div><div id="cashEmpty" class="empty">لا توجد حركة صندوق.</div></div>
-  </section>
+            <div class="icon-wrapper">
+                <div class="icon">⛔</div>
+            </div>
 
-  <section id="suppliers" class="section">
-    <div class="grid-2"><div class="card"><h3>حسابات الموردين</h3><span class="sub">الديون القائمة حسب المورد.</span><div class="mini-list" id="supplierList"></div></div><div class="card"><h3>تسديد دفعة نقدية</h3><span class="sub">يُخفض دين المورد ويُسجل خروجاً من الصندوق تلقائياً.</span><form id="supplierPayForm"><div class="form-grid"><div class="field"><label>المورد</label><select id="supplierPayName"></select></div><div class="field"><label>المبلغ (د.ع)</label><input id="supplierPayAmount" type="number" min="1" required></div><div class="field"><label>التاريخ</label><input id="supplierPayDate" type="date" required></div><div class="field"><label>البيان</label><input id="supplierPayNote" placeholder="اختياري"></div></div><div class="actions"><button class="btn primary" type="submit">تسديد الدفعة</button></div></form></div></div>
-    <div class="card"><div class="summary-bar"><div><h3>إدارة الموردين</h3><span class="sub">أضف أي مورد جديد، وحدد فقط الموردين الذين تريد ظهورهم في اختيار سجل الصيانة.</span></div><span class="version-badge">V10</span></div>
-      <form id="supplierForm"><div class="form-grid"><div class="field"><label>اسم المورد الجديد</label><input id="supplierName" maxlength="80" required placeholder="مثال: شركة النور"></div><div class="field"><label>&nbsp;</label><label class="inline-check"><input id="supplierShowInRepairs" type="checkbox" checked> إظهار المورد في اختيارات سجل الصيانة</label></div></div><div class="actions"><button class="btn primary" type="submit">إضافة المورد</button></div></form>
-      <div id="supplierManagementList" class="search-results" style="margin-top:13px"></div>
-    </div>
-    <div class="card"><h3>كشف ديون الموردين</h3><span class="sub">تفصيل القطع المشتراة بالدين والدفعات المسددة.</span><div class="table-wrap"><table class="table"><thead><tr><th>المورد</th><th>إجمالي الدين</th><th>المسدد</th><th>الباقي</th></tr></thead><tbody id="supplierBody"></tbody></table></div></div>
-  </section>
+            <div class="badge">
+                إشعار إغلاق
+            </div>
 
-  <section id="expenses" class="section">
-    <div class="grid-2">
-      <div class="card"><h3>تسجيل مصروف</h3><span class="sub">مصروف مستقل مع تصنيف واضح حتى لا تختلط المصاريف بسجل الصيانة.</span><form id="expenseForm"><div class="form-grid"><div class="field"><label>نوع المصروف</label><select id="expenseType"><option>إيجار</option><option>كهرباء</option><option>أدوات صيانة</option><option>نقل</option><option>تنظيف</option><option>اتصالات</option><option>مصروف آخر</option></select></div><div class="field"><label>المبلغ (د.ع)</label><input id="expenseAmount" type="number" min="1" required></div><div class="field"><label>التاريخ</label><input id="expenseDate" type="date" required></div><div class="field"><label>البيان</label><input id="expenseNote" placeholder="مثال: شراء فلاكس"></div><div class="field full"><label class="inline-check"><input id="expensePaidFromCash" type="checkbox" checked> خصم المبلغ من الصندوق الآن</label></div></div><div class="actions"><button class="btn danger" type="submit">حفظ المصروف</button></div></form></div>
-      <div class="card"><h3>ملخص المصاريف</h3><span class="sub">إجمالي المصاريف المسجلة حسب التصنيف.</span><div class="mini-list" id="expenseSummary"></div></div>
-    </div>
-    <div class="card"><div class="summary-bar"><div><h3>سجل المصاريف</h3><span class="sub">يمكن حذف المصروف؛ وإذا كان مربوطاً بالصندوق تُحذف الحركة المرتبطة معه أيضاً.</span></div><span class="pill" id="expenseCount">0 مصروف</span></div><div class="table-wrap"><table class="table"><thead><tr><th>النوع</th><th>المبلغ</th><th>البيان</th><th>التاريخ</th><th>من الصندوق</th><th></th></tr></thead><tbody id="expenseBody"></tbody></table></div><div id="expenseEmpty" class="empty">لا توجد مصاريف مسجلة.</div></div>
-  </section>
+            <h1>
+                تم إغلاق الموقع نهائياً
+            </h1>
 
-  <section id="reports" class="section">
-    <div class="card"><div class="summary-bar"><div><h3>تقارير المحل</h3><span class="sub">تقرير دقيق حسب اليوم أو الأسبوع أو الشهر أو فترة تختارها.</span></div></div>
-      <div class="report-controls"><div class="field"><label>نوع الفترة</label><select id="reportPeriod"><option value="today">اليوم</option><option value="week">هذا الأسبوع</option><option value="month" selected>هذا الشهر</option><option value="all">كل البيانات</option><option value="custom">فترة مخصصة</option></select></div><div class="field"><label>من تاريخ</label><input id="reportFrom" type="date"></div><div class="field"><label>إلى تاريخ</label><input id="reportTo" type="date"></div></div>
-      <div class="report-grid" id="reportCards"></div><div class="actions"><button class="btn ghost small" id="exportReportBtn" type="button">تصدير تقرير الفترة CSV</button></div>
-      <div class="report-section-title">تفاصيل الصيانة</div><div class="mini-list" id="reportRepairDetails"></div>
-      <div class="report-section-title">تفاصيل الصندوق والمصاريف</div><div class="mini-list" id="reportCashDetails"></div>
-      <div class="report-section-title">تفاصيل الديون والخسائر</div><div class="mini-list" id="reportDebtDetails"></div>
-    </div>
-  </section>
+            <p class="main-text">
+                نعتذر عن إغلاق هذا الموقع وإيقاف الخدمة من خلاله بشكل نهائي.
+                <br>
+                نشكركم على زيارتكم وثقتكم، ونقدّر كل من استخدم الموقع
+                خلال فترة تشغيله.
+            </p>
 
-  <section id="customers" class="section">
-    <div class="card"><div class="summary-bar"><div><h3>إدارة الزبائن</h3><span class="sub">V5 — ملف مبسط لكل زبون مبني تلقائياً من عمليات الصيانة المسجلة.</span></div><span class="version-badge">V5</span></div>
-      <div class="global-search"><input id="customerSearch" class="search-input" placeholder="بحث باسم الزبون أو رقم الهاتف..."><button id="customerSearchClear" class="btn ghost" type="button">مسح</button></div>
-      <div id="customersList" class="search-results"></div><div id="customersEmpty" class="empty hidden">لا توجد بيانات زبائن مطابقة.</div>
-    </div>
-  </section>
+            <div class="divider"></div>
 
-  <section id="activity" class="section">
-    <div class="card"><div class="summary-bar"><div><h3>سجل النشاط</h3><span class="sub">V6 — سجل مبسط للأحداث المهمة داخل النظام لمساعدتك على تتبع ما حدث.</span></div><span class="version-badge">V6</span></div>
-      <div class="filter-bar" style="grid-template-columns:1fr auto"><input id="activitySearch" class="search-input" placeholder="بحث في النشاط..."><button id="activityClear" class="btn ghost" type="button">مسح السجل</button></div>
-      <div id="activityList" class="search-results"></div><div id="activityEmpty" class="empty hidden">لا توجد أنشطة مسجلة.</div>
-    </div>
-  </section>
+            <p class="thanks">
+                شكراً لكل من كان جزءاً من هذه التجربة،
+                ونتمنى لكم كل التوفيق.
+            </p>
 
-  <section id="settings" class="section">
-    <div class="settings-grid">
-      <div class="card"><div class="summary-bar"><div><h3>هوية المحل</h3><span class="sub">هذه البيانات تخص صاحب التطبيق ويمكن تعديلها في أي وقت.</span></div><span class="version-badge">V3</span></div>
-        <form id="profileForm"><div class="form-grid">
-          <div class="field"><label>اسم المحل</label><input id="profileStoreName" required maxlength="80" placeholder="مثال: مركز النور للموبايلات"></div>
-          <div class="field"><label>اسمي</label><input id="profileUserName" maxlength="80" placeholder="مثال: أيمن"></div><div class="field"><label>اسم الشريك</label><input id="profilePartnerName" maxlength="80" placeholder="اختياري"></div>
-          <div class="field"><label>رقم الهاتف</label><input id="profilePhone" type="tel" inputmode="tel" maxlength="30" placeholder="اختياري"></div>
-          <div class="field"><label>العنوان</label><input id="profileAddress" maxlength="140" placeholder="اختياري"></div>
-          <div class="field full"><label>الوصف الظاهر أسفل اسم المحل</label><input id="profileSubtitle" maxlength="120" placeholder="مثال: صيانة موبايلات وإدارة الحسابات"></div>
-          <div class="field full"><label>شعار المحل</label><div class="logo-box"><div class="logo-preview" id="logoPreview">س</div><div class="logo-meta"><strong>صورة اختيارية</strong><span>سيتم تصغير الصورة تلقائياً لتقليل استهلاك التخزين.</span><div class="actions"><label class="btn ghost small" style="display:inline-flex;align-items:center;gap:6px;cursor:pointer">اختيار صورة<input id="logoFile" type="file" accept="image/*" class="hidden"></label><button id="removeLogoBtn" type="button" class="btn danger small">إزالة الشعار</button></div></div></div></div>
-        </div><div class="setting-section-title">جهة الربح الصافي</div><div class="field"><label>لمن يُنسب صافي الربح في النظام؟</label><select id="profitBeneficiary"><option value="owner">لي</option><option value="partner">للشريك</option><option value="both" selected>للطرفين</option></select></div><div class="intro-note">الاختيار يحدد الجهة المستفيدة من الربح بدون نسب أو تقسيم رقمي.</div><div class="actions"><button class="btn primary" type="submit">حفظ بيانات المحل</button></div></form>
-      </div>
-      <div class="card"><div class="summary-bar"><div><h3>مركز النسخ الاحتياطي</h3><span class="sub">V4 + V11 — النسخ الاحتياطي وحماية البيانات وإدارة الموردين والأطراف.</span></div><span class="version-badge">V4 + V11</span></div>
-        <div id="backupStatus" class="backup-status"></div><div class="backup-actions"><button class="btn success" type="button" onclick="performBackup()">إنشاء نسخة احتياطية</button><button class="btn primary" type="button" onclick="document.getElementById('fileImport').click()">استعادة نسخة</button></div>
-        <div class="setting-section-title">تذكير النسخ الاحتياطي</div><div class="field"><label>إظهار تنبيه بعد</label><select id="backupReminderDays"><option value="1">يوم واحد</option><option value="3">3 أيام</option><option value="7" selected>7 أيام</option><option value="14">14 يوماً</option><option value="30">30 يوماً</option></select></div>
-        <div class="intro-note">احتفظ بملف النسخة الاحتياطية خارج التطبيق. لا يوجد خادم سحابي ضمن هذا النظام.</div>
-        <div class="setting-section-title">نقطة أمان قبل الاستعادة</div><div class="notice">قبل استعادة أي نسخة، يحتفظ النظام بنقطة أمان للبيانات الحالية حتى تتمكن من استعادة نقطة الأمان الأخيرة ما دامت بيانات التطبيق المحلية لم تُمسح.</div><div class="actions"><button class="btn ghost small" type="button" id="restorePreviousBtn">استعادة نقطة الأمان الأخيرة</button></div>
-      </div>
-    </div>
-    <div class="card danger-zone"><div class="summary-bar"><div><h3>منطقة خطرة</h3><span class="sub">حذف جميع بيانات المحل من هذا الجهاز.</span></div></div><div class="notice">هذا الإجراء يحذف سجلات الصيانة والصندوق والموردين والمصاريف والخسائر. أنشئ نسخة احتياطية واحفظها خارج التطبيق أولاً.</div><div class="form-grid" style="margin-top:12px"><div class="field"><label>اكتب كلمة التأكيد: <strong>حذف</strong></label><input id="clearConfirm" class="confirm-code" maxlength="4" placeholder="حذف"></div><div class="field" style="justify-content:end"><button class="btn danger" id="clearAllBtn" type="button">حذف جميع البيانات المحلية</button></div></div></div>
-    <div class="card settings-v7"><div class="summary-bar"><div><h3>تخصيص وتجربة النظام</h3><span class="sub">V7 — تخصيص المظهر، الحركة والوضع التجريبي.</span></div><span class="version-badge">V7</span></div>
-  <div class="setting-section-title">لون الواجهة</div><div class="color-row"><input id="accentColor" type="color" value="#4f8cff"><span class="intro-note">يغيّر اللون الرئيسي للأزرار والعناصر البارزة.</span></div>
-  <div class="setting-section-title">الحركة</div><label class="inline-check"><input id="animationsToggle" type="checkbox" checked> تفعيل الحركات والانتقالات</label>
-  <div class="setting-section-title">نمط العرض</div><label class="inline-check"><input id="compactModeToggle" type="checkbox"> الوضع المضغوط لتقليل المسافات</label>
-  <div class="setting-section-title">الوضع التجريبي</div><div class="demo-box"><h4>جرّب النظام ببيانات وهمية</h4><p>يتم حفظ نقطة أمان لبياناتك الحالية قبل تشغيل العرض التجريبي، ويمكنك الرجوع إليها بعد التجربة.</p><div class="demo-actions"><button class="btn warning" id="startDemoBtn" type="button">تشغيل الوضع التجريبي</button><button class="btn ghost" id="exitDemoBtn" type="button">إنهاء التجربة واستعادة بياناتي</button></div></div>
-</div>
-    <div class="card settings-v9"><div class="summary-bar"><div><h3>حماية V9 وفحص البيانات</h3><span class="sub">تحسينات أمان واعتمادية للتخزين والاستعادة والتصدير.</span></div><span class="version-badge">V9</span></div>
-      <div class="notice">يمكن للنظام الآن فحص بنية السجلات، اكتشاف بعض المشاكل الشائعة، وحماية البيانات من مدخلات غير صالحة أثناء الاستعادة.</div>
-      <div class="actions"><button class="btn primary" id="dataHealthBtn" type="button">فحص سلامة البيانات</button></div>
-      <div id="dataHealthResult" class="intro-note"></div>
-    </div>
-    <div class="card settings-v11"><div class="summary-bar"><div><h3>V11 — أطراف المحل والربح</h3><span class="sub">أسماء الأطراف وجهة إسناد صافي الربح.</span></div><span class="version-badge">V11</span></div><div class="mini-list"><div class="mini-item"><span>اسمي</span><span id="settingsUserName">-</span></div><div class="mini-item"><span>اسم الشريك</span><span id="settingsPartnerName">-</span></div><div class="mini-item"><span>جهة الربح الصافي</span><span id="settingsProfitBeneficiary">للطرفين</span></div></div></div>
-    <div class="card"><h3>حول النظام</h3><span class="sub">نظام إدارة محل الصيانة مع تخزين محلي ونسخ احتياطي يدوي لحماية بياناتك.</span><div class="mini-list"><div class="mini-item"><span>اسم التطبيق</span><span>سجل المحل</span></div><div class="mini-item"><span>الإصدار</span><span>V3 + V4 + V5 + V6 + V7 + V8 + V9 + V10 + V11 + V12</span></div><div class="mini-item"><span>التخزين</span><span>محلي على هذا الجهاز + نسخ احتياطي JSON</span></div></div></div>
-  </section>
+            <div class="contact-box">
 
-  <section id="losses" class="section">
-    <div class="grid-2"><div class="card"><h3>تسجيل خسارة فنية</h3><span class="sub">تُخصم من أرباح الصيانة عندما تكون على حساب أرباح الورشة.</span><form id="lossForm"><div class="form-grid"><div class="field"><label>نوع الخسارة</label><input id="lossType" required placeholder="مثال: كسر شاشة"></div><div class="field"><label>تكلفة القطعة التالفة (د.ع)</label><input id="lossCost" type="number" min="0" required></div><div class="field"><label>من سيتحمل الخسارة؟</label><select id="lossBearer"><option value="profit">تُخصم من الأرباح</option><option value="owner">أنا</option><option value="partner">الشريك</option><option value="other">طرف آخر</option></select></div><div class="field"><label>التاريخ</label><input id="lossDate" type="date" required></div><div class="field full"><label>ملاحظات</label><textarea id="lossNote" placeholder="تفاصيل إضافية عن سبب الخسارة"></textarea></div></div><div class="actions"><button class="btn danger" type="submit">حفظ الخسارة</button></div></form></div><div class="card"><h3>سجل الخسائر</h3><span class="sub">الخسائر التي تم تسجيلها.</span><div class="table-wrap"><table class="table"><thead><tr><th>نوع الخسارة</th><th>التكلفة</th><th>المتحمل</th><th>التاريخ</th><th></th></tr></thead><tbody id="lossBody"></tbody></table></div><div id="lossEmpty" class="empty">لا توجد خسائر مسجلة.</div></div></div>
-  </section>
+                <div class="contact-title">
+                    للتواصل والاستفسار
+                </div>
 
-  <section id="support" class="section">
-    <div class="card">
-      <div class="summary-bar"><div><h3>التواصل مع الدعم</h3><span class="sub">للاستفسارات والمساعدة المتعلقة بالنظام، يمكنك التواصل مباشرة عبر الحسابات التالية.</span></div><span class="version-badge">الدعم</span></div>
-      <div class="grid-2">
-        <div class="card" style="margin-bottom:0;background:#0f1b2c">
-          <h3>واتساب</h3><span class="sub">للتواصل المباشر والدعم السريع.</span>
-          <div class="actions"><a class="btn success" href="https://wa.me/9647741331411" target="_blank" rel="noopener noreferrer">07741331411</a></div>
-        </div>
-        <div class="card" style="margin-bottom:0;background:#0f1b2c">
-          <h3>تلكرام</h3><span class="sub">الحساب الرسمي للتواصل والرسائل.</span>
-          <div class="actions"><a class="btn primary" href="https://t.me/aimen_iq" target="_blank" rel="noopener noreferrer">@aimen_iq</a></div>
-        </div>
-        <div class="card" style="margin-bottom:0;background:#0f1b2c">
-          <h3>إنستا</h3><span class="sub">الحساب على Instagram.</span>
-          <div class="actions"><a class="btn warning" href="https://instagram.com/m85ih" target="_blank" rel="noopener noreferrer">@m85ih</a></div>
-        </div>
-        <div class="card" style="margin-bottom:0;background:linear-gradient(145deg,rgba(24,48,82,.75),rgba(13,25,42,.95));border-color:#355174">
-          <h3>مصمم ومعد النظام</h3><span class="sub">التصميم والبرمجة والإعداد.</span>
-          <div class="mini-list"><div class="mini-item"><span>الاسم</span><span>أيمن رعد</span></div><div class="mini-item"><span>التواصل</span><span>07741331411</span></div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
-</div>
+                <div class="contacts">
 
+                    <a
+                        class="contact"
+                        href="https://t.me/aimen_iq"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Telegram · @aimen_iq
+                    </a>
 
-<div class="creator-mark" aria-label="تصميم وإعداد أيمن رعد">
-  <span class="creator-spark">✦</span>
-  <span><small>تصميم وإعداد</small><strong>أيمن رعد</strong></span>
-</div>
-<div class="modal hidden" id="modal"><div class="modal-box"><div class="modal-head"><h3 id="modalTitle">تفاصيل العملية</h3><button class="close-btn" id="modalClose">✕</button></div><div id="modalContent"></div></div></div>
+                    <a
+                        class="contact"
+                        href="https://instagram.com/m85ih"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Instagram · @m85ih
+                    </a>
 
-<div class="welcome-overlay hidden" id="welcomeOverlay"><div class="welcome-shell"><div class="welcome-orb orb-a"></div><div class="welcome-orb orb-b"></div>
-  <div class="welcome-panel" id="welcomePanel"><div class="welcome-grid"><div><div class="welcome-badge">◆ نظام مستقل لإدارة المحل</div><h1 class="welcome-title">مرحباً بك</h1><p class="welcome-text">أهلاً بك عزيزي الزائر، أمامك نظام يساعدك على إدارة سجل محل الصيانة وتنظيم عملياتك اليومية ومتابعة الحسابات والمبالغ بطريقة بسيطة ومنظمة.</p><div class="welcome-warning"><strong>تنبيه مهم:</strong> بيانات النظام تُحفظ محلياً على هذا الجهاز. استخدم النسخ الاحتياطي بشكل دوري واحتفظ بملف النسخة في مكان آمن حتى لا تفقد سجلاتك.</div><div class="welcome-check"><input type="checkbox" id="welcomeSkip"><label for="welcomeSkip">عدم إظهار رسالة الترحيب مرة أخرى</label></div><div class="welcome-actions"><button class="btn primary" id="welcomeStartBtn" type="button">فهمت، ابدأ استخدام النظام</button></div></div><div class="welcome-visual"><div class="visual-grid"></div><div class="visual-ring"></div><div class="visual-center">⚙</div><span class="visual-dot dot-1"></span><span class="visual-dot dot-2"></span><span class="visual-dot dot-3"></span></div></div></div>
-  <div class="setup-panel" id="setupPanel"><div class="setup-head"><h3>إعداد المحل لأول مرة</h3><p>أدخل بيانات المحل. يمكن تعديلها لاحقاً من الإعدادات.</p></div><form id="firstSetupForm"><div class="setup-grid"><div class="field"><label>اسم المحل</label><input id="firstStoreName" required maxlength="80" placeholder="مثال: مركز النور للموبايلات"></div><div class="field"><label>اسمي</label><input id="firstUserName" maxlength="80" placeholder="مثال: أيمن"></div><div class="field"><label>اسم الشريك</label><input id="firstPartnerName" maxlength="80" placeholder="اختياري"></div><div class="field"><label>رقم الهاتف</label><input id="firstPhone" type="tel" inputmode="tel" maxlength="30" placeholder="اختياري"></div><div class="field"><label>العنوان</label><input id="firstAddress" maxlength="140" placeholder="اختياري"></div><div class="field full"><label>الوصف</label><input id="firstSubtitle" maxlength="120" placeholder="مثال: صيانة موبايلات وإدارة الحسابات"></div><div class="field full"><label>شعار المحل</label><div class="logo-box"><div class="logo-preview" id="firstLogoPreview">س</div><div class="logo-meta"><strong>اختياري</strong><span>يمكن إضافته لاحقاً.</span><div class="actions"><label class="btn ghost small" style="display:inline-flex;align-items:center;gap:6px;cursor:pointer">اختيار صورة<input id="firstLogoFile" type="file" accept="image/*" class="hidden"></label></div></div></div></div></div><div class="actions"><button class="btn primary" type="submit">حفظ وإكمال الإعداد</button></div></form></div>
-</div></div>
-<script>
+                    <a
+                        class="contact"
+                        href="https://wa.me/9647741331411"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        WhatsApp · 07741331411
+                    </a>
 
-const APP_VERSION='12.0.0';
-const STORAGE_KEY='sijil_almahal_v12';
-const LEGACY_STORAGE_KEYS=['sijil_almahal_v11','sijil_almahal_v10','sijil_almahal_v9','sijil_almahal_v8','sijil_almahal_v7','sijil_almahal_v6','sijil_almahal_v5','sijil_almahal_v4','sijil_almahal_v2'];
-const BACKUP_KEY='sijil_almahal_last_backup';
-const PRE_RESTORE_KEY='sijil_almahal_pre_restore_v12';
-const LEGACY_PRE_RESTORE_KEYS=['sijil_almahal_pre_restore_v11','sijil_almahal_pre_restore_v10','sijil_almahal_pre_restore_v9','sijil_almahal_pre_restore_v8','sijil_almahal_pre_restore_v7'];
-const DEMO_SNAPSHOT_KEY='sijil_almahal_demo_snapshot_v12';
-const LEGACY_DEMO_SNAPSHOT_KEYS=['sijil_almahal_demo_snapshot_v11','sijil_almahal_demo_snapshot_v10','sijil_almahal_demo_snapshot_v9','sijil_almahal_demo_snapshot_v8','sijil_almahal_demo_snapshot_v7'];
-const PROFILE_KEY='sijil_almahal_profile_v12';
-const PROFILE_LEGACY_KEYS=['sijil_almahal_profile_v11','sijil_almahal_profile_v10','sijil_almahal_profile_v9','sijil_almahal_profile_v8','sijil_almahal_profile_v7','sijil_almahal_profile_v6','sijil_almahal_profile_v4'];
-const SETTINGS_KEY='sijil_almahal_settings_v12';
-const SETTINGS_LEGACY_KEYS=['sijil_almahal_settings_v11','sijil_almahal_settings_v10','sijil_almahal_settings_v9','sijil_almahal_settings_v8','sijil_almahal_settings_v7','sijil_almahal_settings_v6','sijil_almahal_settings_v4'];
-const DEFAULT_PROFILE={storeName:'سجل المحل',ownerName:'',userName:'',partnerName:'',phone:'',address:'',subtitle:'نظام إدارة الصيانة والحسابات اليومية.',logo:''};
-const DEFAULT_SETTINGS={backupReminderDays:7,welcomeDismissed:false,profileConfigured:false,accentColor:'#4f8cff',animations:true,compactMode:false,demoMode:false,profitBeneficiary:'both'};
-const DEFAULT_SUPPLIERS=[{id:'builtin-mishtaq',name:'مشتاق',showInRepairs:true},{id:'builtin-other',name:'موردين آخرين',showInRepairs:true}];
-let state=loadState();
-let profile=loadProfile();
-let appSettings=loadSettings();
-let editRepairId=null;
-let currentReportRange=null;
-let lastGeneratedId=0;
-if(!localStorage.getItem(STORAGE_KEY)){const legacyKey=LEGACY_STORAGE_KEYS.find(k=>localStorage.getItem(k));if(legacyKey)localStorage.setItem(STORAGE_KEY,localStorage.getItem(legacyKey))}
+                </div>
 
-function freshSupplierCatalog(){return DEFAULT_SUPPLIERS.map(x=>({...x}))}
-function normalizeSupplierCatalog(raw,repairs=[],payments=[]){
-  const map=new Map();
-  const keyOf=name=>String(name||'').trim().toLocaleLowerCase('ar');
-  const put=(name,show=true,id=null,override=false)=>{
-    const clean=String(name||'').trim();if(!clean)return;
-    const key=keyOf(clean),existing=map.get(key);
-    if(existing){if(override){existing.showInRepairs=Boolean(show);if(id!=null)existing.id=id;}return;}
-    map.set(key,{id:id??`supplier-${map.size+1}`,name:clean.slice(0,80),showInRepairs:Boolean(show)});
-  };
-  DEFAULT_SUPPLIERS.forEach(x=>put(x.name,x.showInRepairs,x.id));
-  if(Array.isArray(raw))raw.forEach(x=>{if(x&&typeof x==='object')put(x.name,x.showInRepairs!==false,x.id,true);});
-  repairs.forEach(r=>put(r?.supplier,true));
-  payments.forEach(p=>put(p?.supplier,true));
-  return [...map.values()];
-}
-function freshState(){return {repairs:[],cash:[],losses:[],supplierPayments:[],expenses:[],activity:[],suppliers:freshSupplierCatalog()}}
-function normalizeState(parsed){const src=parsed&&typeof parsed==='object'?parsed:{};const arr=key=>Array.isArray(src[key])?src[key].filter(x=>x&&typeof x==='object'):[];const repairs=arr('repairs'),supplierPayments=arr('supplierPayments');return {...freshState(),repairs,cash:arr('cash'),losses:arr('losses'),supplierPayments,expenses:arr('expenses'),activity:arr('activity'),suppliers:normalizeSupplierCatalog(src.suppliers,repairs,supplierPayments)}}
-function safeSetStorage(key,value,quiet=false){try{localStorage.setItem(key,value);return true}catch(e){console.error('Storage write failed:',e);if(!quiet&&!window.__storageWarningShown){window.__storageWarningShown=true;alert('تعذر حفظ التغييرات على الجهاز. قد تكون مساحة التخزين ممتلئة. أنشئ نسخة احتياطية ثم حاول حذف بيانات قديمة أو كبيرة.')}return false}}
-function loadState(){try{let raw=localStorage.getItem(STORAGE_KEY);if(!raw){for(const legacy of LEGACY_STORAGE_KEYS){const legacyRaw=localStorage.getItem(legacy);if(legacyRaw){raw=legacyRaw;break}}}if(!raw)return freshState();return normalizeState(JSON.parse(raw))}catch(e){console.error('State load failed:',e);return freshState()}}
-function saveState(){const ok=safeSetStorage(STORAGE_KEY,JSON.stringify(state));if(ok)window.dispatchEvent(new CustomEvent('sijil:data-changed',{detail:{kind:'state'}}));return ok}
-function sanitizeProfile(raw){const src=raw&&typeof raw==='object'?raw:{};const logo=String(src.logo||'');const safeLogo=/^data:image\/(?:png|jpeg|webp|gif);base64,[a-z0-9+/=\s]+$/i.test(logo)?logo:'';const userName=String(src.userName||src.ownerName||'').slice(0,80);const partnerName=String(src.partnerName||'').slice(0,80);return {...DEFAULT_PROFILE,storeName:String(src.storeName||DEFAULT_PROFILE.storeName).slice(0,80),ownerName:userName,userName,partnerName,phone:String(src.phone||'').slice(0,30),address:String(src.address||'').slice(0,140),subtitle:String(src.subtitle||DEFAULT_PROFILE.subtitle).slice(0,120),logo:safeLogo}}
-function loadProfile(){try{let raw=localStorage.getItem(PROFILE_KEY);if(!raw){for(const key of PROFILE_LEGACY_KEYS){raw=localStorage.getItem(key);if(raw)break}}return sanitizeProfile(JSON.parse(raw||'{}'))}catch(e){return {...DEFAULT_PROFILE}}}
-function saveProfile(){profile=sanitizeProfile(profile);const ok=safeSetStorage(PROFILE_KEY,JSON.stringify(profile));if(ok)window.dispatchEvent(new CustomEvent('sijil:data-changed',{detail:{kind:'profile'}}));return ok}
-function sanitizeSettings(raw){const src=raw&&typeof raw==='object'?raw:{};const allowedDays=[1,3,7,14,30],allowedProfit=['owner','partner','both'];const accent=/^#[0-9a-f]{6}$/i.test(String(src.accentColor||''))?String(src.accentColor):DEFAULT_SETTINGS.accentColor;const profitBeneficiary=allowedProfit.includes(String(src.profitBeneficiary))?String(src.profitBeneficiary):'both';return {...DEFAULT_SETTINGS,backupReminderDays:allowedDays.includes(Number(src.backupReminderDays))?Number(src.backupReminderDays):7,welcomeDismissed:Boolean(src.welcomeDismissed),profileConfigured:Boolean(src.profileConfigured),accentColor:accent,animations:src.animations!==false,compactMode:Boolean(src.compactMode),demoMode:Boolean(src.demoMode),profitBeneficiary}}
-function loadSettings(){try{let raw=localStorage.getItem(SETTINGS_KEY);if(!raw){for(const key of SETTINGS_LEGACY_KEYS){raw=localStorage.getItem(key);if(raw)break}}return sanitizeSettings(JSON.parse(raw||'{}'))}catch(e){return {...DEFAULT_SETTINGS}}}
-function saveSettings(){appSettings=sanitizeSettings(appSettings);const ok=safeSetStorage(SETTINGS_KEY,JSON.stringify(appSettings));if(ok)window.dispatchEvent(new CustomEvent('sijil:data-changed',{detail:{kind:'settings'}}));return ok}
-function money(n){return `${Math.round(Number(n)||0).toLocaleString('ar-IQ')} د.ع`}
-function value(id){return Number(document.getElementById(id)?.value)||0}
-function makeId(){let id=Date.now()*1000+Math.floor(Math.random()*1000);const occupied=new Set([...state.repairs,...state.cash,...state.losses,...state.supplierPayments,...state.expenses,...(state.activity||[]),(state.suppliers||[])].map(x=>String(x?.id||'')));while(occupied.has(String(id))||id<=lastGeneratedId)id+=1;lastGeneratedId=id;return id}
-function localDateString(date=new Date()){const y=date.getFullYear(),m=String(date.getMonth()+1).padStart(2,'0'),d=String(date.getDate()).padStart(2,'0');return `${y}-${m}-${d}`}
-function today(){return localDateString()}
-function formatDate(d){if(!d)return '-';const [y,m,day]=d.split('-');return `${day}/${m}/${y}`}
-function escapeHtml(str){return String(str??'').replace(/[&<>'"]/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[s]))}
-function setDefaultDates(){['repairDate','cashInDate','cashOutDate','supplierPayDate','lossDate','debtPayDate','expenseDate'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=today()})}
-function initials(text){const clean=String(text||'سجل المحل').trim().split(/\s+/).filter(Boolean);return (clean.slice(0,2).map(x=>x[0]||'س').join('')||'س').toUpperCase()}
-function profitBeneficiaryLabel(){const u=profile.userName||profile.ownerName||'أنا',p=profile.partnerName||'الشريك';return appSettings.profitBeneficiary==='owner'?`لي — ${u}`:appSettings.profitBeneficiary==='partner'?`للشريك — ${p}`:`للطرفين — ${u} و${p}`}
-function updatePartyChoices(){const owner=profile.userName||profile.ownerName||'أنا',partner=profile.partnerName||'الشريك';const cash=document.getElementById('cashOutType');if(cash){const o=cash.querySelector('option[value="owner"]'),p=cash.querySelector('option[value="partner"]');if(o)o.textContent=`سحب شخصي — ${owner}`;if(p)p.textContent=`سحب شخصي — ${partner}`}const profit=document.getElementById('profitBeneficiary');if(profit){const o=profit.querySelector('option[value="owner"]'),p=profit.querySelector('option[value="partner"]'),b=profit.querySelector('option[value="both"]');if(o)o.textContent=`لي — ${owner}`;if(p)p.textContent=`للشريك — ${partner}`;if(b)b.textContent=`للطرفين — ${owner} و${partner}`;profit.value=appSettings.profitBeneficiary||'both'}const loss=document.getElementById('lossBearer');if(loss){const o=loss.querySelector('option[value="owner"]'),p=loss.querySelector('option[value="partner"]');if(o)o.textContent=owner;if(p)p.textContent=partner}const statLabel=document.querySelector('#statProfit')?.previousElementSibling;if(statLabel)statLabel.textContent=`صافي أرباح الصيانة — ${profitBeneficiaryLabel()}`;const su=document.getElementById('settingsUserName'),sp=document.getElementById('settingsPartnerName'),sb=document.getElementById('settingsProfitBeneficiary');if(su)su.textContent=owner;if(sp)sp.textContent=partner;if(sb)sb.textContent=profitBeneficiaryLabel()}
-function applyProfileToUI(){const name=profile.storeName||DEFAULT_PROFILE.storeName,sub=profile.subtitle||DEFAULT_PROFILE.subtitle;document.getElementById('brandStoreName').textContent=name;document.getElementById('brandStoreSub').textContent=sub;document.getElementById('dashboardStoreName').textContent=name;document.getElementById('dashboardStoreMeta').textContent=[sub,profile.userName&&`الاسم: ${profile.userName}`,profile.partnerName&&`الشريك: ${profile.partnerName}`,profile.phone].filter(Boolean).join(' · ')||'نظام إدارة محل الصيانة والحسابات';document.title=`${name} | سجل المحل`;const setLogo=el=>{if(!el)return;el.textContent='';if(profile.logo){const img=document.createElement('img');img.src=profile.logo;img.alt='شعار المحل';img.loading='lazy';el.appendChild(img)}else el.textContent=initials(name)};setLogo(document.getElementById('dashboardLogo'));setLogo(document.getElementById('logoPreview'));setLogo(document.getElementById('firstLogoPreview'));const ids={profileStoreName:profile.storeName||'',profileUserName:profile.userName||profile.ownerName||'',profilePartnerName:profile.partnerName||'',profilePhone:profile.phone||'',profileAddress:profile.address||'',profileSubtitle:profile.subtitle||'',firstStoreName:profile.storeName||'',firstUserName:profile.userName||profile.ownerName||'',firstPartnerName:profile.partnerName||'',firstPhone:profile.phone||'',firstAddress:profile.address||'',firstSubtitle:profile.subtitle||''};Object.entries(ids).forEach(([id,v])=>{const el=document.getElementById(id);if(el)el.value=v});const rd=document.getElementById('backupReminderDays');if(rd)rd.value=String(appSettings.backupReminderDays||7);updatePartyChoices()}
-function formatRelativeBackup(iso){if(!iso)return 'لم يتم إنشاء نسخة احتياطية بعد.';const dt=new Date(iso);if(Number.isNaN(dt.getTime()))return 'تاريخ النسخة الاحتياطية غير صالح.';const days=Math.floor(Math.max(0,Date.now()-dt.getTime())/86400000);if(days===0)return 'تم إنشاء النسخة الاحتياطية اليوم.';if(days===1)return 'تم إنشاء النسخة الاحتياطية أمس.';return `آخر نسخة احتياطية قبل ${days} يوماً.`}
-function getBackupStatus(){const raw=localStorage.getItem(BACKUP_KEY),days=Number(appSettings.backupReminderDays)||7;if(!raw)return {warn:true,text:'لا توجد نسخة احتياطية مسجلة لهذا التطبيق.'};const dt=new Date(raw),diff=Math.floor(Math.max(0,Date.now()-dt.getTime())/86400000);if(Number.isNaN(dt.getTime()))return {warn:true,text:'تعذر التحقق من تاريخ النسخة الاحتياطية.'};return {warn:diff>=days,text:`${formatRelativeBackup(raw)}${diff>=days?' حان وقت إنشاء نسخة جديدة.':''}`,iso:raw}}
-function renderBackupCenter(){const el=document.getElementById('backupStatus'),st=getBackupStatus();if(el){el.className=`backup-status ${st.warn?'warn':'good'}`;el.innerHTML=`<strong>${st.warn?'يُنصح بإنشاء نسخة احتياطية الآن':'النسخة الاحتياطية بحالة جيدة'}</strong><span>${escapeHtml(st.text)}</span>`}const b=document.getElementById('backupReminder'),t=document.getElementById('backupReminderText');if(b&&t){b.classList.toggle('hidden',!st.warn);t.textContent=st.text}const footer=document.getElementById('lastBackupText');if(footer)footer.textContent=st.text}
-function isValidStateShape(data){if(!data||typeof data!=='object')return false;return ['repairs','cash','losses','supplierPayments','expenses','activity'].every(k=>Array.isArray(data[k]))}
-function getFirstAvailableStorageValue(keys){for(const key of keys){const raw=localStorage.getItem(key);if(raw)return raw}return ''}
-function savePreRestoreSnapshot(label){try{let raw=localStorage.getItem(PRE_RESTORE_KEY)||getFirstAvailableStorageValue(LEGACY_PRE_RESTORE_KEYS)||'[]';let history;try{history=JSON.parse(raw)}catch(e){history=[]}if(!Array.isArray(history))history=history&&history.data?[history]:[];history.unshift({version:APP_VERSION,label,createdAt:new Date().toISOString(),profile,settings:appSettings,data:normalizeState(state)});history=history.map(x=>x&&typeof x==='object'?{...x,data:normalizeState(x.data)}:x).filter(x=>x&&isValidStateShape(x.data)).slice(0,3);return safeSetStorage(PRE_RESTORE_KEY,JSON.stringify(history),true)}catch(e){console.error('Snapshot failed:',e);return false}}
-function getRestoreHistory(){try{const raw=localStorage.getItem(PRE_RESTORE_KEY)||getFirstAvailableStorageValue(LEGACY_PRE_RESTORE_KEYS);if(!raw)return [];const parsed=JSON.parse(raw);const history=Array.isArray(parsed)?parsed:(parsed&&parsed.data?[parsed]:[]);return history.map(x=>x&&typeof x==='object'?{...x,data:normalizeState(x.data)}:x).filter(x=>x&&isValidStateShape(x.data)).slice(0,3)}catch(e){return []}}
-function restorePreviousSnapshot(){const history=getRestoreHistory();if(!history.length)return alert('لا توجد نقطة أمان سابقة محفوظة.');const snap=history[0],normalizedSnap=normalizeState(snap.data);if(!isValidStateShape(normalizedSnap))return alert('نقطة الأمان غير صالحة.');if(!confirm(`سيتم التراجع إلى آخر نقطة أمان بتاريخ ${new Date(snap.createdAt).toLocaleString('ar-IQ')}.
-هل أنت متأكد؟`))return;try{if(!savePreRestoreSnapshot('قبل التراجع'))return alert('تعذر حفظ نقطة أمان إضافية. لم يتم التراجع.');state=normalizedSnap;profile=sanitizeProfile(snap.profile||DEFAULT_PROFILE);appSettings=sanitizeSettings(snap.settings||DEFAULT_SETTINGS);saveProfile();saveSettings();if(!saveState())return;history.shift();if(history.length)safeSetStorage(PRE_RESTORE_KEY,JSON.stringify(history),true);else localStorage.removeItem(PRE_RESTORE_KEY);renderAll();alert('تم استعادة نقطة الأمان الأخيرة بنجاح.')}catch(e){console.error(e);alert('تعذر استعادة نقطة الأمان.')}}
-function performBackup(){try{const backup={app:'سجل المحل',version:APP_VERSION,createdAt:new Date().toISOString(),profile,settings:appSettings,data:state};const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),dl=document.createElement('a');dl.href=url;dl.download=`sijil_almahal_backup_${today()}.json`;document.body.appendChild(dl);dl.click();dl.remove();URL.revokeObjectURL(url);localStorage.setItem(BACKUP_KEY,new Date().toISOString());logActivity('إنشاء نسخة احتياطية','تم إنشاء ملف نسخة احتياطية بنجاح.','success');saveState();renderBackupCenter();alert('تم إنشاء النسخة الاحتياطية بنجاح. احتفظ بالملف في مكان آمن.')}catch(e){alert('تعذر إنشاء النسخة الاحتياطية.')}}
-function resetRepairForm(){document.getElementById('repairForm').reset();editRepairId=null;document.getElementById('repairFormTitle').textContent='إضافة جهاز جديد';document.getElementById('repairSubmitBtn').textContent='حفظ العملية';document.getElementById('cancelEditBtn').classList.add('hidden');document.getElementById('editNotice').classList.add('hidden');document.getElementById('supplierField').classList.remove('hidden');document.getElementById('paidAmount').value=0;setDefaultDates();calculateNetProfit()}
-function readAndCompressLogo(file,callback){if(!file)return callback('');if(!file.type.startsWith('image/'))return alert('اختر ملف صورة صالحاً.');if(file.size>5*1024*1024)return alert('حجم الصورة كبير جداً. اختر صورة أصغر.');const reader=new FileReader();reader.onload=()=>{const img=new Image();img.onload=()=>{const size=256,canvas=document.createElement('canvas');canvas.width=size;canvas.height=size;const ctx=canvas.getContext('2d');ctx.fillStyle='#172235';ctx.fillRect(0,0,size,size);const scale=Math.min(size/img.width,size/img.height),w=img.width*scale,h=img.height*scale;ctx.drawImage(img,(size-w)/2,(size-h)/2,w,h);callback(canvas.toDataURL('image/webp',.82))};img.onerror=()=>alert('تعذر قراءة الصورة.');img.src=reader.result};reader.onerror=()=>alert('تعذر قراءة الملف.');reader.readAsDataURL(file)}
-function openWelcome(){const overlay=document.getElementById('welcomeOverlay');if(!overlay)return;overlay.classList.remove('hidden');document.getElementById('welcomePanel').classList.remove('hidden-panel');document.getElementById('setupPanel').classList.remove('active')}
-function shouldShowWelcome(){return !appSettings.welcomeDismissed}
-function calculateNetProfit(){const total=value('customerTotal');const part=value('partPrice');const delivery=value('delivery');document.getElementById('netProfit').value=total-(part+delivery)}
-function cashTotals(){const incoming=state.cash.filter(x=>x.kind==='in').reduce((s,x)=>s+Number(x.amount||0),0);const outgoing=state.cash.filter(x=>x.kind==='out').reduce((s,x)=>s+Number(x.amount||0),0);return {incoming,outgoing,balance:incoming-outgoing}}
-function supplierDebtTotals(){const gross={},paid={},balance={};state.repairs.filter(r=>r.partStatus==='debt').forEach(r=>{const supplier=String(r.supplier||'موردين آخرين');gross[supplier]=(gross[supplier]||0)+Number(r.partPrice||0)});state.supplierPayments.forEach(p=>{const supplier=String(p.supplier||'موردين آخرين');paid[supplier]=(paid[supplier]||0)+Number(p.amount||0)});const allSuppliers=new Set([...(state.suppliers||[]).map(s=>String(s.name||'')),...Object.keys(gross),...Object.keys(paid)]);if(!allSuppliers.size)allSuppliers.add('مشتاق');allSuppliers.forEach(s=>{if(s)balance[s]=Math.max(0,(gross[s]||0)-(paid[s]||0))});return {gross,paid,balance}}
-function customerDebt(){return state.repairs.reduce((s,r)=>s+Math.max(0,Number(r.customerTotal||0)-Number(r.paidAmount||0)),0)}
-function repairProfit(){return state.repairs.reduce((s,r)=>s+Number(r.netProfit||0),0)}
-function profitAfterLosses(){return repairProfit()-state.losses.filter(l=>l.bearer==='profit').reduce((s,l)=>s+Number(l.cost||0),0)}
-function expensesTotal(){return state.expenses.reduce((s,e)=>s+Number(e.amount||0),0)}
-function expensesForRange(from,to){return state.expenses.filter(e=>(!from||e.date>=from)&&(!to||e.date<=to))}
-function isDateInRange(date,from,to){return (!from||date>=from)&&(!to||date<=to)}
-function repairForPaymentId(id){return state.repairs.find(r=>r.id===id)}
-function customerPaymentRows(){const rows=[];state.repairs.forEach(r=>{if(Array.isArray(r.payments)&&r.payments.length){r.payments.forEach(p=>rows.push({repairId:r.id,customerName:r.customerName||'',device:r.device||'',phone:r.customerPhone||'',amount:Number(p.amount||0),date:p.date||r.date,source:p.source||'دفعة'}))}else if(Number(r.paidAmount||0)>0){rows.push({repairId:r.id,customerName:r.customerName||'',device:r.device||'',phone:r.customerPhone||'',amount:Number(r.paidAmount||0),date:r.date,source:'دفعة أولية'})}});return rows.sort((a,b)=>String(b.date).localeCompare(String(a.date)))}
+            </div>
 
-function activateSection(id){document.querySelectorAll('.section').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.section===id));const btn=document.querySelector(`[data-section="${id}"]`);document.getElementById('pageTitle').textContent=btn?btn.textContent.trim():'سجل المحل';document.body.classList.remove('menu-open');document.getElementById('mobileNav').classList.remove('show');if(id==='reports')renderReports()}
-let pendingFirstLogo='';
-document.getElementById('welcomeStartBtn').addEventListener('click',()=>{appSettings.welcomeDismissed=document.getElementById('welcomeSkip').checked;saveSettings();if(appSettings.profileConfigured){document.getElementById('welcomeOverlay').classList.add('hidden');activateSection('dashboard');return}document.getElementById('welcomePanel').classList.add('hidden-panel');document.getElementById('setupPanel').classList.add('active')});
-document.getElementById('firstSetupForm').addEventListener('submit',e=>{e.preventDefault();const userName=document.getElementById('firstUserName').value.trim();profile={...profile,storeName:document.getElementById('firstStoreName').value.trim()||DEFAULT_PROFILE.storeName,ownerName:userName,userName,partnerName:document.getElementById('firstPartnerName').value.trim(),phone:document.getElementById('firstPhone').value.trim(),address:document.getElementById('firstAddress').value.trim(),subtitle:document.getElementById('firstSubtitle').value.trim()||DEFAULT_PROFILE.subtitle,logo:pendingFirstLogo};appSettings.profileConfigured=true;saveProfile();saveSettings();logActivity('إعداد المحل لأول مرة',profile.storeName,'success');saveState();applyProfileToUI();document.getElementById('welcomeOverlay').classList.add('hidden');activateSection('dashboard')});
-document.getElementById('firstLogoFile').addEventListener('change',e=>readAndCompressLogo(e.target.files[0],data=>{pendingFirstLogo=data;const el=document.getElementById('firstLogoPreview');if(data)el.innerHTML=`<img src="${data}" alt="شعار المحل">`;else el.textContent=initials(document.getElementById('firstStoreName').value||DEFAULT_PROFILE.storeName)}));
-document.getElementById('profileForm').addEventListener('submit',e=>{e.preventDefault();const userName=document.getElementById('profileUserName').value.trim();profile={...profile,storeName:document.getElementById('profileStoreName').value.trim()||DEFAULT_PROFILE.storeName,ownerName:userName,userName,partnerName:document.getElementById('profilePartnerName').value.trim(),phone:document.getElementById('profilePhone').value.trim(),address:document.getElementById('profileAddress').value.trim(),subtitle:document.getElementById('profileSubtitle').value.trim()||DEFAULT_PROFILE.subtitle};appSettings.profitBeneficiary=document.getElementById('profitBeneficiary').value||'both';saveProfile();saveSettings();logActivity('تحديث بيانات المحل',`${profile.storeName} — جهة الربح: ${profitBeneficiaryLabel()}`,'info');saveState();applyProfileToUI();alert('تم حفظ بيانات المحل وإعداد جهة الربح.')});
-document.getElementById('logoFile').addEventListener('change',e=>readAndCompressLogo(e.target.files[0],data=>{profile.logo=data;saveProfile();applyProfileToUI()}));
-document.getElementById('removeLogoBtn').addEventListener('click',()=>{profile.logo='';saveProfile();applyProfileToUI()});
-document.getElementById('profitBeneficiary').addEventListener('change',e=>{appSettings.profitBeneficiary=e.target.value;saveSettings();updatePartyChoices();renderDashboard();renderReports()});
-document.getElementById('backupReminderDays').addEventListener('change',e=>{appSettings.backupReminderDays=Number(e.target.value)||7;saveSettings();renderBackupCenter()});
-document.getElementById('restorePreviousBtn').addEventListener('click',restorePreviousSnapshot);
-document.getElementById('clearAllBtn').addEventListener('click',()=>{if(document.getElementById('clearConfirm').value.trim()!=='حذف')return alert('اكتب كلمة التأكيد «حذف» بشكل صحيح.');if(!confirm('سيتم حذف جميع سجلات الصيانة والصندوق والموردين والمصاريف والخسائر من هذا الجهاز. يفضّل أن تكون لديك نسخة احتياطية محفوظة خارج التطبيق. هل أنت متأكد؟'))return;if(!savePreRestoreSnapshot('قبل حذف جميع البيانات'))return alert('تعذر حفظ نقطة الأمان. لم يتم حذف البيانات.');state=freshState();if(!saveState())return;localStorage.removeItem(BACKUP_KEY);localStorage.removeItem(DEMO_SNAPSHOT_KEY);LEGACY_DEMO_SNAPSHOT_KEYS.forEach(k=>localStorage.removeItem(k));LEGACY_STORAGE_KEYS.forEach(k=>localStorage.removeItem(k));document.getElementById('clearConfirm').value='';renderAll();alert('تم حذف بيانات المحل من التخزين المحلي. بيانات هوية المحل بقيت محفوظة.')});
-document.querySelectorAll('.nav-btn').forEach(btn=>btn.addEventListener('click',()=>activateSection(btn.dataset.section)));
-document.getElementById('menuToggle').addEventListener('click',()=>{document.body.classList.toggle('menu-open');document.getElementById('mobileNav').classList.toggle('show')});
-document.getElementById('mobileNav').addEventListener('click',()=>{document.body.classList.remove('menu-open');document.getElementById('mobileNav').classList.remove('show')});
-['partPrice','delivery','customerTotal'].forEach(id=>document.getElementById(id).addEventListener('input',calculateNetProfit));
-document.getElementById('partStatus').addEventListener('change',()=>document.getElementById('supplierField').classList.toggle('hidden',document.getElementById('partStatus').value!=='debt'));
-document.getElementById('paymentStatus').addEventListener('change',()=>{const status=document.getElementById('paymentStatus').value,total=document.getElementById('customerTotal').value;if(status==='paid')document.getElementById('paidAmount').value=total;else if(status==='unpaid')document.getElementById('paidAmount').value=0});
-document.getElementById('customerTotal').addEventListener('input',()=>{if(document.getElementById('paymentStatus').value==='paid')document.getElementById('paidAmount').value=document.getElementById('customerTotal').value});
-document.getElementById('repairForm').addEventListener('reset',()=>setTimeout(()=>{editRepairId=null;document.getElementById('repairFormTitle').textContent='إضافة جهاز جديد';document.getElementById('repairSubmitBtn').textContent='حفظ العملية';document.getElementById('cancelEditBtn').classList.add('hidden');document.getElementById('editNotice').classList.add('hidden');document.getElementById('supplierField').classList.remove('hidden');document.getElementById('paidAmount').value=0;setDefaultDates();calculateNetProfit()},0));
-document.getElementById('cancelEditBtn').addEventListener('click',resetRepairForm);
+            <footer>
+                تصميم وإعداد
+                <span class="designer">أيمن رعد</span>
+            </footer>
 
-document.getElementById('repairForm').addEventListener('submit',e=>{e.preventDefault();const customerTotal=value('customerTotal'),payment=document.getElementById('paymentStatus').value;let paid=value('paidAmount');if(payment==='paid')paid=customerTotal;if(payment==='unpaid')paid=0;if(paid>customerTotal)return alert('المبلغ الواصل لا يمكن أن يتجاوز الحساب الكامل للزبون.');const date=document.getElementById('repairDate').value||today();
-  if(editRepairId!==null){updateRepair(editRepairId,paid,payment,date);return}
-  const repairId=makeId();const repair={id:repairId,customerName:document.getElementById('customerName').value.trim(),customerPhone:document.getElementById('customerPhone').value.trim(),device:document.getElementById('device').value.trim(),fault:document.getElementById('fault').value.trim(),intakeNotes:document.getElementById('intakeNotes').value.trim(),partPrice:value('partPrice'),partStatus:document.getElementById('partStatus').value,supplier:document.getElementById('supplier').value,delivery:value('delivery'),customerTotal,netProfit:customerTotal-(value('partPrice')+value('delivery')),deviceStatus:document.getElementById('deviceStatus').value,paymentStatus:payment,paidAmount:paid,date,payments:paid>0?[{id:makeId(),amount:paid,date,source:'دفعة أولية'}]:[]};
-  state.repairs.unshift(repair);logActivity('إضافة عملية صيانة',`${repair.customerName||'-'} — ${repair.device}`,'success');if(paid>0)addCash({id:makeId(),repairId,kind:'in',amount:paid,note:`دفعة أولية - ${repair.customerName||repair.device}`,date,auto:true});if(repair.partStatus==='cash'&&repair.partPrice>0)addCash({id:makeId(),repairId,kind:'out',amount:repair.partPrice,note:`شراء قطعة نقدية - ${repair.device}`,date,auto:true});if(repair.delivery>0)addCash({id:makeId(),repairId,kind:'out',amount:repair.delivery,note:`أجور توصيل - ${repair.device}`,date,auto:true});saveState();renderAll();resetRepairForm();alert('تم حفظ عملية الصيانة بنجاح.')});
+        </section>
 
-function addCash(item){state.cash.unshift(item)}
-function removeAutoCashForRepair(repairId){state.cash=state.cash.filter(x=>x.repairId!==repairId)}
-function updateRepair(id,paid,payment,date){
-  const r=state.repairs.find(x=>x.id===id);
-  if(!r)return;
+    </main>
 
-  const oldPaid=Number(r.paidAmount||0);
-  const oldPartStatus=r.partStatus||'debt';
-  const oldPartPrice=Number(r.partPrice||0);
-  const oldDelivery=Number(r.delivery||0);
-  const newPartStatus=document.getElementById('partStatus').value;
-  const newPartPrice=value('partPrice');
-  const newDelivery=value('delivery');
-  const newCustomerTotal=value('customerTotal');
-  const deltaPaid=paid-oldPaid;
-  const oldCashPart=oldPartStatus==='cash'?oldPartPrice:0;
-  const newCashPart=newPartStatus==='cash'?newPartPrice:0;
-  const deltaPartCash=newCashPart-oldCashPart;
-  const deltaDelivery=newDelivery-oldDelivery;
+    <script>
+        /*
+         * صفحة إغلاق الموقع
+         * لا تحتاج إلى أي مكتبات خارجية.
+         */
 
-  r.customerName=document.getElementById('customerName').value.trim();
-  r.customerPhone=document.getElementById('customerPhone').value.trim();
-  r.device=document.getElementById('device').value.trim();
-  r.fault=document.getElementById('fault').value.trim();
-  r.intakeNotes=document.getElementById('intakeNotes').value.trim();
-  r.partPrice=newPartPrice;
-  r.partStatus=newPartStatus;
-  r.supplier=document.getElementById('supplier').value;
-  r.delivery=newDelivery;
-  r.customerTotal=newCustomerTotal;
-  r.netProfit=newCustomerTotal-(newPartPrice+newDelivery);
-  r.deviceStatus=document.getElementById('deviceStatus').value;
-  r.paymentStatus=payment;
-  r.paidAmount=paid;
-  r.date=date;
-  if(!Array.isArray(r.payments))r.payments=[];
+        document.addEventListener("DOMContentLoaded", () => {
 
-  // Editing an existing repair is treated as an accounting adjustment, not as deletion/recreation.
-  // Historical cash movements stay intact and every correction becomes an auditable movement.
-  if(deltaPaid!==0){
-    r.payments.push({id:makeId(),amount:deltaPaid,date,source:deltaPaid>0?'إضافة دفعة بالتعديل':'عكس دفعة بالتعديل'});
-    addCash({
-      id:makeId(),
-      repairId:id,
-      kind:deltaPaid>0?'in':'out',
-      amount:Math.abs(deltaPaid),
-      note:`${deltaPaid>0?'إضافة دفعة':'عكس دفعة'} بالتعديل - ${r.customerName||r.device}`,
-      date,
-      auto:true,
-      adjustment:true
-    });
-  }
+            const card = document.querySelector(".card");
 
-  if(deltaPartCash!==0){
-    addCash({
-      id:makeId(),
-      repairId:id,
-      kind:deltaPartCash>0?'out':'in',
-      amount:Math.abs(deltaPartCash),
-      note:`${deltaPartCash>0?'زيادة':'عكس'} تكلفة قطعة نقدية بالتعديل - ${r.device}`,
-      date,
-      auto:true,
-      adjustment:true
-    });
-  }
+            if (card) {
+                card.setAttribute(
+                    "aria-label",
+                    "إشعار إغلاق الموقع نهائياً"
+                );
+            }
 
-  if(deltaDelivery!==0){
-    addCash({
-      id:makeId(),
-      repairId:id,
-      kind:deltaDelivery>0?'out':'in',
-      amount:Math.abs(deltaDelivery),
-      note:`${deltaDelivery>0?'زيادة':'عكس'} أجور توصيل بالتعديل - ${r.device}`,
-      date,
-      auto:true,
-      adjustment:true
-    });
-  }
+            // تحديث عنوان الصفحة تلقائياً
+            document.title = "تم إغلاق الموقع نهائياً";
 
-  logActivity('تعديل عملية صيانة',`${r.customerName||'-'} — ${r.device}`,'info');saveState();renderAll();resetRepairForm();alert('تم تعديل عملية الصيانة مع حفظ أثر التعديل المالي.');
-}
+        });
+    </script>
 
-// حذف العملية يحذف الحركات المالية المرتبطة بها، وحذف المصروف يحذف حركته المرتبطة إن وجدت.
-function removeItem(collection,id){if(!confirm('هل أنت متأكد من الحذف؟ لا يمكن التراجع عن هذه الخطوة.'))return;let label=collection;let detail='';if(collection==='repairs'){const r=state.repairs.find(x=>x.id===id);label='عملية صيانة';detail=r?`${r.customerName||'-'} — ${r.device}`:'';removeAutoCashForRepair(id)}if(collection==='expenses'){const ex=state.expenses.find(x=>x.id===id);label='مصروف';detail=ex?`${ex.type} — ${money(ex.amount)}`:'';if(ex?.cashId)state.cash=state.cash.filter(x=>x.id!==ex.cashId)}if(collection==='losses'){const l=state.losses.find(x=>x.id===id);label='خسارة';detail=l?`${l.type} — ${money(l.cost)}`:''}state[collection]=state[collection].filter(x=>x.id!==id);logActivity(`حذف ${label}`,detail,'danger');saveState();renderAll()}
-function editRepair(id){const r=state.repairs.find(x=>x.id===id);if(!r)return;editRepairId=id;document.getElementById('customerName').value=r.customerName||'';document.getElementById('customerPhone').value=r.customerPhone||'';document.getElementById('device').value=r.device||'';document.getElementById('fault').value=r.fault||'';document.getElementById('intakeNotes').value=r.intakeNotes||'';document.getElementById('partPrice').value=Number(r.partPrice||0);document.getElementById('partStatus').value=r.partStatus||'debt';const supplierSelect=document.getElementById('supplier');const rSupplier=r.supplier||'مشتاق';if(!Array.from(supplierSelect.options).some(o=>o.value===rSupplier))supplierSelect.appendChild(new Option(`${rSupplier} (محفوظ سابقاً)`,rSupplier));supplierSelect.value=rSupplier;document.getElementById('delivery').value=Number(r.delivery||0);document.getElementById('customerTotal').value=Number(r.customerTotal||0);document.getElementById('deviceStatus').value=r.deviceStatus||'done';document.getElementById('paymentStatus').value=r.paymentStatus||'unpaid';document.getElementById('paidAmount').value=Number(r.paidAmount||0);document.getElementById('repairDate').value=r.date||today();document.getElementById('supplierField').classList.toggle('hidden',document.getElementById('partStatus').value!=='debt');document.getElementById('repairFormTitle').textContent=`تعديل عملية — ${r.customerName||r.device}`;document.getElementById('repairSubmitBtn').textContent='حفظ التعديلات';document.getElementById('cancelEditBtn').classList.remove('hidden');document.getElementById('editNotice').classList.remove('hidden');calculateNetProfit();activateSection('repairs')}
-function showRepairDetails(id){const r=state.repairs.find(x=>x.id===id);if(!r)return;const payments=Array.isArray(r.payments)?r.payments:[];document.getElementById('modalTitle').textContent=`تفاصيل العملية — ${r.customerName||r.device}`;document.getElementById('modalContent').innerHTML=`<div class="report-grid"><div class="report-box"><div class="label">الزبون</div><div class="value" style="font-size:15px">${escapeHtml(r.customerName||'-')}</div></div><div class="report-box"><div class="label">الهاتف</div><div class="value" style="font-size:15px">${escapeHtml(r.customerPhone||'-')}</div></div><div class="report-box"><div class="label">الحساب</div><div class="value">${money(r.customerTotal)}</div></div><div class="report-box"><div class="label">الباقي</div><div class="value yellow">${money(Math.max(0,r.customerTotal-r.paidAmount))}</div></div></div><div class="notice"><strong>الجهاز:</strong> ${escapeHtml(r.device)}<br><strong>العطل:</strong> ${escapeHtml(r.fault)}<br><strong>ملاحظات الاستلام:</strong> ${escapeHtml(r.intakeNotes||'لا توجد')}<br><strong>التاريخ:</strong> ${formatDate(r.date)}</div><h4 class="report-section-title">سجل الدفعات</h4><div class="table-wrap"><table class="table"><thead><tr><th>المبلغ</th><th>التاريخ</th><th>المصدر</th></tr></thead><tbody>${payments.map(p=>`<tr><td>${money(p.amount)}</td><td>${formatDate(p.date)}</td><td>${escapeHtml(p.source||'دفعة')}</td></tr>`).join('')||'<tr><td colspan="3" class="empty">لا توجد دفعات.</td></tr>'}</tbody></table></div><div class="actions"><button class="btn primary" onclick="closeModal();editRepair(${id})">تعديل العملية</button></div>`;document.getElementById('modal').classList.remove('hidden')}
-function closeModal(){document.getElementById('modal').classList.add('hidden')}
-document.getElementById('modalClose').addEventListener('click',closeModal);document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
-
-document.getElementById('customerDebtForm').addEventListener('submit',e=>{e.preventDefault();const repairId=Number(document.getElementById('debtRepairSelect').value),amount=value('debtPayAmount'),date=document.getElementById('debtPayDate').value||today();if(!repairId)return alert('يرجى اختيار زبون/جهاز أولاً.');const repair=state.repairs.find(r=>r.id===repairId);if(!repair)return;const remaining=Number(repair.customerTotal||0)-Number(repair.paidAmount||0);if(remaining<=0)return alert('لا يوجد دين متبقٍ على هذه العملية.');if(amount<=0)return alert('أدخل مبلغاً صحيحاً.');if(amount>remaining)return alert(`المبلغ المدخل أكبر من الدين المتبقي (${money(remaining)}).`);repair.paidAmount=Number(repair.paidAmount||0)+amount;repair.paymentStatus=repair.paidAmount>=repair.customerTotal?'paid':'partial';if(!Array.isArray(repair.payments))repair.payments=[];repair.payments.push({id:makeId(),amount,date,source:'تسديد دين'});logActivity('تسديد دين زبون',`${repair.customerName||'-'} — ${money(amount)}`,'success');addCash({id:makeId(),repairId:repair.id,kind:'in',amount,note:`تسديد دين زبون - ${repair.customerName||repair.device}`,date,auto:true});saveState();renderAll();e.target.reset();setDefaultDates();alert('تم تسجيل دفعة الزبون للصندوق بنجاح.')});
-
-document.getElementById('cashInForm').addEventListener('submit',e=>{e.preventDefault();addCash({id:makeId(),kind:'in',amount:value('cashInAmount'),note:document.getElementById('cashInNote').value.trim(),date:document.getElementById('cashInDate').value||today()});logActivity('تسجيل مقبوضة',`${money(value('cashInAmount'))} — ${document.getElementById('cashInNote').value.trim()}`,'success');saveState();renderAll();e.target.reset();setDefaultDates();alert('تم تسجيل المقبوضة.')});
-document.getElementById('cashOutForm').addEventListener('submit',e=>{e.preventDefault();const amount=value('cashOutAmount'),totals=cashTotals();if(amount>totals.balance)return alert('السحب أكبر من الرصيد المتوفر حالياً في الصندوق.');const typeLabel=document.getElementById('cashOutType').selectedOptions[0]?.textContent||'سحب';addCash({id:makeId(),kind:'out',amount,note:`${typeLabel}${document.getElementById('cashOutNote').value.trim()?' — '+document.getElementById('cashOutNote').value.trim():''}`,date:document.getElementById('cashOutDate').value||today()});logActivity('تسجيل سحب',`${money(amount)} — ${typeLabel}`,'warning');saveState();renderAll();e.target.reset();setDefaultDates();alert('تم تسجيل السحب.')});
-document.getElementById('supplierForm').addEventListener('submit',e=>{e.preventDefault();const input=document.getElementById('supplierName'),name=input.value.trim();if(!name)return alert('اكتب اسم المورد أولاً.');if((state.suppliers||[]).some(s=>String(s.name||'').trim().toLocaleLowerCase('ar')===name.toLocaleLowerCase('ar')))return alert('هذا المورد موجود مسبقاً.');state.suppliers.push({id:makeId(),name:name.slice(0,80),showInRepairs:document.getElementById('supplierShowInRepairs').checked});logActivity('إضافة مورد',name,'success');if(!saveState())return;renderAll();input.value='';document.getElementById('supplierShowInRepairs').checked=true;alert('تمت إضافة المورد بنجاح.')});
-
-document.getElementById('supplierPayForm').addEventListener('submit',e=>{e.preventDefault();const supplier=document.getElementById('supplierPayName').value,amount=value('supplierPayAmount'),debt=supplierDebtTotals().balance[supplier]||0;if(amount>debt)return alert(`الدفعة أكبر من الدين الحالي على ${supplier}.`);const date=document.getElementById('supplierPayDate').value||today(),id=makeId();state.supplierPayments.unshift({id,supplier,amount,date,note:document.getElementById('supplierPayNote').value.trim()});logActivity('تسديد دين مورد',`${supplier} — ${money(amount)}`,'success');addCash({id:makeId(),supplierPaymentId:id,kind:'out',amount,note:`تسديد دين المورد - ${supplier}`,date,auto:true});saveState();renderAll();e.target.reset();setDefaultDates();alert('تم تسديد الدفعة وتسجيلها في الصندوق.')});
-
-document.getElementById('expenseForm').addEventListener('submit',e=>{e.preventDefault();const amount=value('expenseAmount'),paidFromCash=document.getElementById('expensePaidFromCash').checked,date=document.getElementById('expenseDate').value||today();if(paidFromCash&&amount>cashTotals().balance)return alert('رصيد الصندوق غير كافٍ لتسجيل هذا المصروف.');const id=makeId(),expense={id,type:document.getElementById('expenseType').value,amount,date,note:document.getElementById('expenseNote').value.trim(),paidFromCash,cashId:null};if(paidFromCash){expense.cashId=makeId();addCash({id:expense.cashId,kind:'out',amount,note:`مصروف - ${expense.type}${expense.note?' — '+expense.note:''}`,date,expenseId:id,auto:true})}state.expenses.unshift(expense);logActivity('تسجيل مصروف',`${expense.type} — ${money(amount)}`,'warning');saveState();renderAll();e.target.reset();setDefaultDates();alert('تم تسجيل المصروف بنجاح.')});
-
-document.getElementById('lossForm').addEventListener('submit',e=>{e.preventDefault();const loss={id:makeId(),type:document.getElementById('lossType').value.trim(),cost:value('lossCost'),bearer:document.getElementById('lossBearer').value,date:document.getElementById('lossDate').value||today(),note:document.getElementById('lossNote').value.trim()};state.losses.unshift(loss);logActivity('تسجيل خسارة',`${loss.type} — ${money(loss.cost)}`,'danger');saveState();renderAll();e.target.reset();setDefaultDates();alert('تم تسجيل الخسارة.')});
-
-function repairMatches(r){const q=document.getElementById('repairSearch').value.trim().toLowerCase(),pay=document.getElementById('repairPaymentFilter').value,dev=document.getElementById('repairDeviceFilter').value,from=document.getElementById('repairFromDate').value,to=document.getElementById('repairToDate').value;const hay=[r.customerName,r.customerPhone,r.device,r.fault,r.intakeNotes].join(' ').toLowerCase();return (!q||hay.includes(q))&&(pay==='all'||r.paymentStatus===pay)&&(dev==='all'||r.deviceStatus===dev)&&isDateInRange(r.date,from,to)}
-['repairSearch','repairPaymentFilter','repairDeviceFilter','repairFromDate','repairToDate'].forEach(id=>{const el=document.getElementById(id);el.addEventListener('input',renderRepairs);el.addEventListener('change',renderRepairs)});
-
-function renderDashboard(){const cash=cashTotals(),sup=supplierDebtTotals();document.getElementById('statCash').textContent=money(cash.balance);document.getElementById('statCustomerDebt').textContent=money(customerDebt());document.getElementById('statSupplierDebt').textContent=money(Object.values(sup.balance).reduce((sum,n)=>sum+Number(n||0),0));document.getElementById('statProfit').textContent=money(profitAfterLosses());document.getElementById('dashboardSummary').innerHTML=`<div class="mini-item"><span>عدد عمليات الصيانة</span><span>${state.repairs.length}</span></div><div class="mini-item"><span>أجهزة قيد العمل</span><span>${state.repairs.filter(r=>r.deviceStatus==='pending').length}</span></div><div class="mini-item"><span>إجمالي قيمة الصيانة</span><span>${money(state.repairs.reduce((s,r)=>s+Number(r.customerTotal||0),0))}</span></div><div class="mini-item"><span>إجمالي المصاريف</span><span>${money(expensesTotal())}</span></div><div class="mini-item"><span>إجمالي الخسائر على الأرباح</span><span>${money(state.losses.filter(l=>l.bearer==='profit').reduce((s,l)=>s+Number(l.cost||0),0))}</span></div>`;document.getElementById('recentRepairs').innerHTML=state.repairs.slice(0,5).map(r=>`<div class="mini-item"><span>${escapeHtml(r.customerName||'-')} — ${escapeHtml(r.device)}<br><small class="customer-info">${escapeHtml(r.customerPhone||'')} · ${formatDate(r.date)}</small></span><span>${money(r.netProfit)}</span></div>`).join('')||'<div class="empty">لا توجد عمليات بعد.</div>';document.getElementById('dashboardFinancial').innerHTML=`<div class="report-box"><div class="label">النقد</div><div class="value blue">${money(cash.balance)}</div></div><div class="report-box"><div class="label">الربح بعد الخسائر</div><div class="value green">${money(profitAfterLosses())}</div></div><div class="report-box"><div class="label">مصروفات مسجلة</div><div class="value red">${money(expensesTotal())}</div></div><div class="report-box"><div class="label">ديون الزبائن</div><div class="value yellow">${money(customerDebt())}</div></div>`}
-function renderCustomerDebts(){const select=document.getElementById('debtRepairSelect'),debts=state.repairs.filter(r=>Number(r.customerTotal||0)>Number(r.paidAmount||0));if(!debts.length){select.innerHTML='<option value="">لا توجد ديون زبائن حالياً</option>';select.disabled=true;document.getElementById('debtPayAmount').disabled=true}else{select.disabled=false;document.getElementById('debtPayAmount').disabled=false;select.innerHTML='<option value="" disabled selected>اختر الجهاز ...</option>'+debts.map(r=>`<option value="${r.id}">${escapeHtml(r.customerName||'-')} — ${escapeHtml(r.device)} (مطلوب: ${money(r.customerTotal-r.paidAmount)})</option>`).join('')}}
-function renderRepairs(){const rows=state.repairs.filter(repairMatches);document.getElementById('repairCount').textContent=`${rows.length} من ${state.repairs.length} عملية`;const body=document.getElementById('repairsBody');body.innerHTML=rows.map(r=>`<tr><td><strong>${escapeHtml(r.customerName||'-')}</strong><br><span class="customer-info">${escapeHtml(r.intakeNotes||'لا توجد ملاحظات')}</span></td><td>${escapeHtml(r.customerPhone||'-')}</td><td><strong>${escapeHtml(r.device)}</strong><br><span class="customer-info">${r.deviceStatus==='done'?'كمل':'بعده'}</span></td><td>${escapeHtml(r.fault)}</td><td>${money(r.partPrice)}<br><span class="badge ${r.partStatus==='debt'?'warning':'info'}">${r.partStatus==='debt'?'دين':'نقد'}</span></td><td>${money(r.customerTotal)}</td><td>${money(r.paidAmount)}</td><td class="yellow">${money(Math.max(0,r.customerTotal-r.paidAmount))}</td><td class="green">${money(r.netProfit)}</td><td><span class="badge ${r.paymentStatus==='paid'?'success':r.paymentStatus==='partial'?'warning':'danger'}">${r.paymentStatus==='paid'?'واصل':r.paymentStatus==='partial'?'جزئي':'ما واصل'}</span></td><td>${formatDate(r.date)}</td><td><div style="display:flex;gap:5px"><button class="btn small" onclick="showRepairDetails(${r.id})">تفاصيل</button><button class="btn small primary" onclick="editRepair(${r.id})">تعديل</button><button class="btn small danger" onclick="removeItem('repairs',${r.id})">حذف</button></div></td></tr>`).join('');document.getElementById('repairsEmpty').classList.toggle('hidden',rows.length!==0);renderCustomerPayments()}
-function renderCustomerPayments(){const body=document.getElementById('customerPaymentsBody'),rows=customerPaymentRows();body.innerHTML=rows.map(x=>`<tr><td>${escapeHtml(x.customerName||'-')}</td><td>${escapeHtml(x.device||'-')}</td><td>${escapeHtml(x.phone||'-')}</td><td class="green">${money(x.amount)}</td><td>${formatDate(x.date)}</td><td>${escapeHtml(x.source)}</td></tr>`).join('');document.getElementById('customerPaymentsEmpty').classList.toggle('hidden',rows.length!==0)}
-function cashSource(x){if(x.repairId)return 'صيانة';if(x.expenseId)return 'مصروف';if(x.supplierPaymentId)return 'مورد';if(x.auto)return x.adjustment?'تصحيح مالي':'آلي';return 'يدوي'}
-function renderCash(){const t=cashTotals();document.getElementById('cashCurrent').textContent=money(t.balance);document.getElementById('cashIn').textContent=money(t.incoming);document.getElementById('cashOut').textContent=money(t.outgoing);document.getElementById('cashBody').innerHTML=state.cash.map(x=>`<tr><td><span class="badge ${x.kind==='in'?'success':'danger'}">${x.kind==='in'?'مقبوضة':'مدفوعة/سحب'}</span></td><td>${money(x.amount)}</td><td>${escapeHtml(x.note||'-')}</td><td>${formatDate(x.date)}</td><td>${cashSource(x)}</td><td>${x.auto||x.repairId||x.expenseId?'<span style="color:#7e8da4;font-size:10px">مرتبط</span>':`<button class="btn small danger" onclick="removeItem('cash',${x.id})">حذف</button>`}</td></tr>`).join('');document.getElementById('cashEmpty').classList.toggle('hidden',state.cash.length!==0)}
-function supplierNames(){return (state.suppliers||[]).map(s=>String(s.name||'').trim()).filter(Boolean)}
-function renderSupplierOptions(){
-  const repairSelect=document.getElementById('supplier'),paySelect=document.getElementById('supplierPayName');
-  const currentRepair=repairSelect?.value||'';
-  if(repairSelect){
-    const visible=(state.suppliers||[]).filter(s=>s.showInRepairs!==false);
-    repairSelect.innerHTML='';
-    const options=visible.map(s=>({value:s.name,label:s.name}));
-    if(currentRepair && !options.some(o=>o.value===currentRepair))options.unshift({value:currentRepair,label:`${currentRepair} (محفوظ سابقاً)`});
-    if(!options.length){repairSelect.appendChild(new Option('لا يوجد موردون مفعّلون',''));repairSelect.disabled=true}
-    else{options.forEach(o=>repairSelect.appendChild(new Option(o.label,o.value)));repairSelect.disabled=false;const found=options.find(o=>o.value===currentRepair);if(found)repairSelect.value=currentRepair}
-  }
-  if(paySelect){const currentPay=paySelect.value;paySelect.innerHTML='';const all=(state.suppliers||[]).filter(s=>String(s.name||'').trim());if(!all.length){paySelect.appendChild(new Option('لا يوجد موردون',''));paySelect.disabled=true}else{all.forEach(s=>paySelect.appendChild(new Option(s.name,s.name)));paySelect.disabled=false;if(all.some(s=>s.name===currentPay))paySelect.value=currentPay}}
-}
-function setSupplierVisibility(id,show){const decodedId=decodeURIComponent(id);const s=(state.suppliers||[]).find(x=>String(x.id)===String(decodedId));if(!s)return;s.showInRepairs=Boolean(show);saveState();renderAll()}
-function renderSupplierManagement(){const box=document.getElementById('supplierManagementList');if(!box)return;const list=state.suppliers||[];box.innerHTML=list.map(s=>`<div class="supplier-manage-row"><div class="supplier-manage-main"><strong>${escapeHtml(s.name)}</strong><span>${s.showInRepairs!==false?'يظهر في سجل الصيانة':'مخفي من سجل الصيانة'}</span></div><div class="supplier-manage-actions"><label class="supplier-toggle"><input type="checkbox" ${s.showInRepairs!==false?'checked':''} onchange="setSupplierVisibility('${encodeURIComponent(String(s.id))}',this.checked)"> يظهر في الصيانة</label></div></div>`).join('')||'<div class="empty">لا توجد موردون.</div>'}
-function renderSuppliers(){const t=supplierDebtTotals();const names=[...new Set([...(state.suppliers||[]).map(s=>s.name),...Object.keys(t.balance)])].filter(Boolean);document.getElementById('supplierList').innerHTML=names.map(s=>`<div class="mini-item"><span>${escapeHtml(s)}</span><span class="${(t.balance[s]||0)>0?'red':'green'}">${money(t.balance[s]||0)}</span></div>`).join('')||'<div class="empty">لا توجد موردون.</div>';document.getElementById('supplierBody').innerHTML=names.map(s=>`<tr><td>${escapeHtml(s)}</td><td>${money(t.gross[s]||0)}</td><td>${money(t.paid[s]||0)}</td><td class="${(t.balance[s]||0)>0?'red':'green'}">${money(t.balance[s]||0)}</td></tr>`).join('');renderSupplierOptions();renderSupplierManagement()}
-function renderExpenses(){const grouped={};state.expenses.forEach(e=>grouped[e.type]=(grouped[e.type]||0)+Number(e.amount||0));document.getElementById('expenseSummary').innerHTML=Object.keys(grouped).sort().map(k=>`<div class="mini-item"><span>${escapeHtml(k)}</span><span>${money(grouped[k])}</span></div>`).join('')||'<div class="empty">لا توجد مصاريف.</div>';document.getElementById('expenseCount').textContent=`${state.expenses.length} مصروف`;document.getElementById('expenseBody').innerHTML=state.expenses.map(e=>`<tr><td>${escapeHtml(e.type)}</td><td class="red">${money(e.amount)}</td><td>${escapeHtml(e.note||'-')}</td><td>${formatDate(e.date)}</td><td>${e.paidFromCash?'نعم':'لا'}</td><td><button class="btn small danger" onclick="removeItem('expenses',${e.id})">حذف</button></td></tr>`).join('');document.getElementById('expenseEmpty').classList.toggle('hidden',state.expenses.length!==0)}
-function renderLosses(){const owner=profile.userName||profile.ownerName||'أنا',partner=profile.partnerName||'الشريك';document.getElementById('lossBody').innerHTML=state.losses.map(l=>`<tr><td>${escapeHtml(l.type)}</td><td>${money(l.cost)}</td><td>${l.bearer==='profit'?'الأرباح':l.bearer==='owner'?escapeHtml(owner):l.bearer==='partner'?escapeHtml(partner):'طرف آخر'}</td><td>${formatDate(l.date)}</td><td><button class="btn small danger" onclick="removeItem('losses',${l.id})">حذف</button></td></tr>`).join('');document.getElementById('lossEmpty').classList.toggle('hidden',state.losses.length!==0)}
-
-function getReportRange(){const period=document.getElementById('reportPeriod').value;const now=new Date();const y=now.getFullYear(),m=now.getMonth(),d=now.getDate();let from='',to=today();if(period==='today')from=to;else if(period==='week'){const x=new Date(now);const day=(x.getDay()+6)%7;x.setDate(d-day);from=x.toISOString().slice(0,10)}else if(period==='month')from=`${y}-${String(m+1).padStart(2,'0')}-01`;else if(period==='all'){from='';to=''}else if(period==='custom'){from=document.getElementById('reportFrom').value;to=document.getElementById('reportTo').value}return {from,to}}
-['reportPeriod','reportFrom','reportTo'].forEach(id=>document.getElementById(id).addEventListener('change',renderReports));
-function renderReports(){
-  const {from,to}=getReportRange();currentReportRange={from,to};
-  const repairs=state.repairs.filter(r=>isDateInRange(r.date,from,to));
-  const cash=state.cash.filter(x=>isDateInRange(x.date,from,to));
-  const expenses=expensesForRange(from,to);
-  const losses=state.losses.filter(x=>isDateInRange(x.date,from,to));
-  const paymentRows=customerPaymentRows().filter(p=>isDateInRange(p.date,from,to));
-  const totalSales=repairs.reduce((s,r)=>s+Number(r.customerTotal||0),0);
-  const profit=repairs.reduce((s,r)=>s+Number(r.netProfit||0),0);
-  const collected=paymentRows.reduce((s,p)=>s+Number(p.amount||0),0);
-  const repairParts=repairs.reduce((s,r)=>s+Number(r.partPrice||0),0);
-  const delivery=repairs.reduce((s,r)=>s+Number(r.delivery||0),0);
-  const lossProfit=losses.filter(l=>l.bearer==='profit').reduce((s,l)=>s+Number(l.cost||0),0);
-  const expenseSum=expenses.reduce((s,e)=>s+Number(e.amount||0),0);
-  const cashIn=cash.filter(x=>x.kind==='in').reduce((s,x)=>s+Number(x.amount||0),0);
-  const cashOut=cash.filter(x=>x.kind==='out').reduce((s,x)=>s+Number(x.amount||0),0);
-  const customers=getCustomers().filter(c=>repairs.some(r=>r.customerName&&r.customerName.trim()===c.name));
-  document.getElementById('reportCards').innerHTML=[['عدد عمليات الصيانة',repairs.length,'blue'],['إجمالي حسابات الصيانة',totalSales,'blue'],['المقبوض فعلياً من الزبائن',collected,'green'],['صافي ربح الصيانة بعد خسائر الأرباح',profit-lossProfit,'green'],['تكلفة القطع',repairParts,'red'],['أجور التوصيل',delivery,'red'],['المصاريف',expenseSum,'red'],['صافي حركة الصندوق',cashIn-cashOut,'blue'],['عدد الزبائن',customers.length,'blue']].map(a=>`<div class="report-box"><div class="label">${a[0]}</div><div class="value ${a[2]}">${typeof a[1]==='number'?money(a[1]):a[1]}</div></div>`).join('');
-  document.getElementById('reportRepairDetails').innerHTML=`<div class="mini-item"><span>أجهزة مكتملة ضمن الفترة</span><span>${repairs.filter(r=>r.deviceStatus==='done').length}</span></div><div class="mini-item"><span>أجهزة قيد العمل ضمن الفترة</span><span>${repairs.filter(r=>r.deviceStatus==='pending').length}</span></div><div class="mini-item"><span>دين الزبائن المتبقي على عمليات الفترة</span><span>${money(repairs.reduce((s,r)=>s+Math.max(0,Number(r.customerTotal||0)-Number(r.paidAmount||0)),0))}</span></div><div class="mini-item"><span>دفعات الزبائن المسجلة خلال الفترة</span><span>${money(collected)}</span></div>`;
-  const daily={};repairs.forEach(r=>{if(r.date)daily[r.date]=(daily[r.date]||0)+1});const keys=Object.keys(daily).sort();const max=Math.max(1,...Object.values(daily));
-  document.getElementById('reportCashDetails').innerHTML=`<div class="mini-item"><span>مقبوضات الفترة</span><span>${money(cashIn)}</span></div><div class="mini-item"><span>مدفوعات الفترة</span><span>${money(cashOut)}</span></div><div class="mini-item"><span>مصروفات الفترة المسجلة</span><span>${money(expenseSum)}</span></div><div class="mini-item"><span>عدد حركات الصندوق</span><span>${cash.length}</span></div><div style="margin-top:10px"><div class="report-section-title" style="margin-top:0">نشاط الصيانة حسب الأيام</div><div class="trend-chart">${keys.length?keys.map(k=>`<div class="trend-day"><div class="trend-value">${daily[k]}</div><div class="trend-bar" style="height:${Math.max(4,Math.round(daily[k]/max*125))}px"></div><div class="trend-label">${escapeHtml(k.slice(5))}</div></div>`).join(''):'<div class="empty">لا توجد عمليات في الفترة.</div>'}</div></div>`;
-  const top=customers.map(c=>({name:c.name,total:c.repairs.reduce((s,r)=>s+Number(r.customerTotal||0),0),count:c.repairs.length})).sort((a,b)=>b.total-a.total).slice(0,6);
-  document.getElementById('reportDebtDetails').innerHTML=`<div class="mini-item"><span>إجمالي دين الموردين الحالي</span><span>${money(Object.values(supplierDebtTotals().balance).reduce((a,b)=>a+b,0))}</span></div><div class="mini-item"><span>الخسائر على الأرباح ضمن الفترة</span><span>${money(lossProfit)}</span></div><div class="report-section-title">أكثر الزبائن تعاملاً حسب إجمالي الحساب</div>${top.map(c=>`<div class="mini-item"><span>${escapeHtml(c.name)}<br><small class="customer-info">${c.count} عملية</small></span><span>${money(c.total)}</span></div>`).join('')||'<div class="empty">لا توجد بيانات كافية.</div>'}`;
-}
-
-// Backup with metadata, schema version and validation.
-document.getElementById('btnExport').addEventListener('click',performBackup);
-document.getElementById('fileImport').addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=event=>{try{const parsed=JSON.parse(event.target.result),imported=parsed&&parsed.data&&typeof parsed.data==='object'&&!Array.isArray(parsed.data)?parsed.data:parsed;if(!imported||typeof imported!=='object'||Array.isArray(imported)||!['repairs','cash','losses','supplierPayments','expenses'].every(k=>Array.isArray(imported[k])))return alert('عذراً، ملف النسخة الاحتياطية غير صالح أو تالف. يجب أن يحتوي على جداول النظام المطلوبة.');const normalizedImport=normalizeState(imported);if(!isValidStateShape(normalizedImport))return alert('عذراً، ملف النسخة الاحتياطية غير صالح أو تالف. يجب أن يحتوي على جداول النظام المطلوبة.');if(parsed&&parsed.profile!=null&&(!parsed.profile||typeof parsed.profile!=='object'||Array.isArray(parsed.profile)))return alert('بيانات هوية المحل داخل النسخة غير صالحة.');if(parsed&&parsed.settings!=null&&(!parsed.settings||typeof parsed.settings!=='object'||Array.isArray(parsed.settings)))return alert('إعدادات النسخة الاحتياطية غير صالحة.');if(!confirm(`سيتم استبدال بيانات المحل الحالية بالبيانات الموجودة في النسخة.
-إصدار الملف: ${String(parsed&&parsed.version||'غير معروف').slice(0,40)}
-سيتم أولاً حفظ نقطة أمان للبيانات الحالية.
-هل أنت متأكد؟`))return;if(!savePreRestoreSnapshot('قبل الاستعادة'))return alert('تعذر حفظ نقطة أمان للبيانات الحالية. لم تتم الاستعادة.');state=normalizedImport;profile=sanitizeProfile(parsed.profile||DEFAULT_PROFILE);appSettings=sanitizeSettings(parsed.settings||DEFAULT_SETTINGS);saveProfile();saveSettings();logActivity('استعادة نسخة احتياطية',`تمت استعادة بيانات النسخة رقم ${String(parsed&&parsed.version||'غير معروف').slice(0,40)}.`,'warning');saveState();renderAll();alert('تمت استعادة البيانات بنجاح.')}catch(err){console.error(err);alert('حدث خطأ أثناء قراءة ملف النسخة الاحتياطية.')}finally{e.target.value=''}};reader.readAsText(file)});
-function renderBackupInfo(){renderBackupCenter()}
-
-function renderAll(){applyProfileToUI();renderDashboard();renderCustomerDebts();renderRepairs();renderCash();renderSuppliers();renderExpenses();renderLosses();renderBackupInfo();renderReports()}
-function updateDateText(){document.getElementById('todayText').textContent=`اليوم: ${new Date().toLocaleDateString('ar-IQ',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}`}
-
-function getCustomers(){
-  const map=new Map();
-  state.repairs.forEach(r=>{
-    const name=(r.customerName||'').trim();if(!name)return;
-    const key=(r.customerPhone||name).trim().toLowerCase();
-    if(!map.has(key))map.set(key,{name,phone:(r.customerPhone||'').trim(),repairs:[]});
-    const c=map.get(key);if(r.customerPhone&&!c.phone)c.phone=r.customerPhone;c.repairs.push(r);
-  });
-  return [...map.values()].sort((a,b)=>b.repairs.length-a.repairs.length);
-}
-function getCustomerByKey(key){return getCustomers().find(c=>String(c.phone||c.name).toLowerCase()===String(key).toLowerCase())}
-function customerStats(c){const total=c.repairs.reduce((s,r)=>s+Number(r.customerTotal||0),0),paid=c.repairs.reduce((s,r)=>s+Number(r.paidAmount||0),0);return {total,paid,debt:Math.max(0,total-paid),count:c.repairs.length,completed:c.repairs.filter(r=>r.deviceStatus==='done').length}}
-function renderCustomers(){const q=document.getElementById('customerSearch').value.trim().toLowerCase(),rows=getCustomers().filter(c=>!q||[c.name,c.phone,...c.repairs.map(r=>r.device)].join(' ').toLowerCase().includes(q));const box=document.getElementById('customersList');box.innerHTML=rows.map(c=>{const st=customerStats(c);const key=encodeURIComponent(c.phone||c.name);return `<div class="customer-card"><div class="customer-main"><strong>${escapeHtml(c.name)}</strong><span>${escapeHtml(c.phone||'بدون رقم')} · ${st.count} عملية · دين: ${money(st.debt)}</span></div><div class="customer-actions"><button class="btn small" onclick="showCustomerProfile('${key}')">فتح الملف</button></div></div>`}).join('');document.getElementById('customersEmpty').classList.toggle('hidden',rows.length!==0)}
-function showCustomerRepairs(encodedName){const name=decodeURIComponent(encodedName||'');closeModal();activateSection('repairs');const el=document.getElementById('repairSearch');if(el){el.value=name;renderRepairs()}}
-function showCustomerProfile(encodedKey){const key=decodeURIComponent(encodedKey),c=getCustomerByKey(key);if(!c)return;const st=customerStats(c);document.getElementById('modalTitle').textContent=`ملف الزبون — ${c.name}`;document.getElementById('modalContent').innerHTML=`<div class="customer-modal-grid"><div class="quick-kpi"><div class="label">رقم الهاتف</div><div class="value" style="font-size:14px">${escapeHtml(c.phone||'-')}</div></div><div class="quick-kpi"><div class="label">عدد العمليات</div><div class="value">${st.count}</div></div><div class="quick-kpi"><div class="label">الدين الحالي</div><div class="value yellow">${money(st.debt)}</div></div></div><div class="notice">إجمالي التعاملات: <strong>${money(st.total)}</strong> · الواصل: <strong>${money(st.paid)}</strong> · المكتمل: <strong>${st.completed}</strong></div><h4 class="report-section-title">تاريخ تعاملات الزبون</h4><div class="table-wrap"><table class="table"><thead><tr><th>التاريخ</th><th>الجهاز</th><th>العطل</th><th>الحساب</th><th>الواصل</th><th>الباقي</th><th>الحالة</th></tr></thead><tbody>${[...c.repairs].sort((a,b)=>String(b.date).localeCompare(String(a.date))).map(r=>`<tr><td>${formatDate(r.date)}</td><td>${escapeHtml(r.device)}</td><td>${escapeHtml(r.fault)}</td><td>${money(r.customerTotal)}</td><td>${money(r.paidAmount)}</td><td class="yellow">${money(Math.max(0,r.customerTotal-r.paidAmount))}</td><td>${r.deviceStatus==='done'?'كمل':'بعده'}</td></tr>`).join('')}</tbody></table></div><div class="actions"><button class="btn primary" onclick="showCustomerRepairs('${encodeURIComponent(c.name).replace(/'/g, "%27")}')">عرض عمليات الزبون</button></div>`;document.getElementById('modal').classList.remove('hidden')}
-function renderGlobalSearch(){const q=document.getElementById('globalSearchInput').value.trim().toLowerCase(),box=document.getElementById('globalSearchResults');if(!q){box.innerHTML='';return}const rows=state.repairs.filter(r=>[r.customerName,r.customerPhone,r.device,r.fault,r.intakeNotes].join(' ').toLowerCase().includes(q)).slice(0,12);box.innerHTML=rows.map(r=>`<div class="customer-card"><div class="customer-main"><strong>${escapeHtml(r.customerName||'-')} — ${escapeHtml(r.device)}</strong><span>${escapeHtml(r.customerPhone||'بدون رقم')} · ${formatDate(r.date)} · ${money(Math.max(0,r.customerTotal-r.paidAmount))} دين</span></div><div class="customer-actions"><button class="btn small" onclick="showRepairDetails(${r.id})">تفاصيل</button></div></div>`).join('')||'<div class="empty">لا توجد نتائج.</div>'}
-function logActivity(action,details,type='info'){if(!state.activity)state.activity=[];state.activity.unshift({id:makeId(),action,details:details||'',type,dateTime:new Date().toISOString()});if(state.activity.length>250)state.activity=state.activity.slice(0,250);}
-function recordActivity(action,details,type='info'){logActivity(action,details,type);saveState()}
-function renderActivity(){const q=(document.getElementById('activitySearch')?.value||'').trim().toLowerCase(),rows=(state.activity||[]).filter(a=>!q||[a.action,a.details,a.type].join(' ').toLowerCase().includes(q));const box=document.getElementById('activityList');box.innerHTML=rows.map(a=>`<div class="activity-item"><span class="activity-dot ${a.type==='success'?'success':a.type==='danger'?'danger':a.type==='warning'?'warning':''}"></span><div class="activity-text"><strong>${escapeHtml(a.action)}</strong><span>${escapeHtml(a.details||'')}</span></div><span class="activity-time">${(Number.isNaN(new Date(a.dateTime).getTime())?'تاريخ غير صالح':new Date(a.dateTime).toLocaleString('ar-IQ'))}</span></div>`).join('');document.getElementById('activityEmpty').classList.toggle('hidden',rows.length!==0)}
-function applyV7Settings(){appSettings=sanitizeSettings(appSettings);document.documentElement.style.setProperty('--primary',appSettings.accentColor||'#4f8cff');document.body.classList.toggle('no-animations',appSettings.animations===false);document.body.classList.toggle('compact-mode',appSettings.compactMode===true);const c=document.getElementById('accentColor');if(c)c.value=appSettings.accentColor||'#4f8cff';const a=document.getElementById('animationsToggle');if(a)a.checked=appSettings.animations!==false;const cm=document.getElementById('compactModeToggle');if(cm)cm.checked=appSettings.compactMode===true}
-function demoData(){const base=today(), mk=(days)=>{const d=new Date(`${base}T00:00:00`);d.setDate(d.getDate()-days);return localDateString(d)};return {repairs:[{id:makeId(),customerName:'محمد أحمد',customerPhone:'07700000001',device:'Samsung A52',fault:'تبديل شاشة',intakeNotes:'خدوش بسيطة في الإطار',partPrice:45000,partStatus:'debt',supplier:'مشتاق',delivery:5000,customerTotal:90000,netProfit:40000,deviceStatus:'done',paymentStatus:'paid',paidAmount:90000,date:mk(0),payments:[{id:makeId(),amount:90000,date:mk(0),source:'دفعة أولية'}]},{id:makeId(),customerName:'علي حسن',customerPhone:'07700000002',device:'iPhone 11',fault:'بطارية',intakeNotes:'الجهاز يعمل',partPrice:35000,partStatus:'cash',supplier:'مشتاق',delivery:3000,customerTotal:70000,netProfit:32000,deviceStatus:'pending',paymentStatus:'partial',paidAmount:30000,date:mk(1),payments:[{id:makeId(),amount:30000,date:mk(1),source:'دفعة أولية'}]},{id:makeId(),customerName:'محمد أحمد',customerPhone:'07700000001',device:'Redmi Note 12',fault:'منفذ شحن',intakeNotes:'لا توجد ملاحظات',partPrice:20000,partStatus:'debt',supplier:'موردين آخرين',delivery:4000,customerTotal:55000,netProfit:31000,deviceStatus:'done',paymentStatus:'unpaid',paidAmount:0,date:mk(3),payments:[]}],cash:[],losses:[{id:makeId(),type:'كسر شاشة أثناء العمل',cost:10000,bearer:'profit',date:mk(2),note:'بيانات تجريبية'}],supplierPayments:[],expenses:[{id:makeId(),type:'نقل',amount:7000,date:mk(1),note:'مصاريف تجريبية',paidFromCash:false,cashId:null}],activity:[]}}
-function saveDemoSnapshot(){return safeSetStorage(DEMO_SNAPSHOT_KEY,JSON.stringify({version:APP_VERSION,createdAt:new Date().toISOString(),profile,settings:appSettings,data:state}),true)}
-function startDemo(){if(appSettings.demoMode)return alert('الوضع التجريبي مفعّل بالفعل.');if(!confirm('سيتم حفظ نقطة أمان لبياناتك الحالية ثم استبدالها مؤقتاً ببيانات تجريبية. هل تريد المتابعة؟'))return;if(!saveDemoSnapshot())return alert('تعذر حفظ نقطة أمان التجربة. لم يتم تشغيل الوضع التجريبي.');state=normalizeState(demoData());state.cash=[];state.repairs.forEach(r=>{if(r.paidAmount)addCash({id:makeId(),repairId:r.id,kind:'in',amount:r.paidAmount,note:`بيانات تجريبية - ${r.device}`,date:r.date,auto:true});if(r.partStatus==='cash'&&r.partPrice)addCash({id:makeId(),repairId:r.id,kind:'out',amount:r.partPrice,note:`بيانات تجريبية - قطعة نقدية`,date:r.date,auto:true});if(r.delivery)addCash({id:makeId(),repairId:r.id,kind:'out',amount:r.delivery,note:`بيانات تجريبية - توصيل`,date:r.date,auto:true})});logActivity('تشغيل الوضع التجريبي','تم استبدال البيانات مؤقتاً ببيانات وهمية.','warning');appSettings.demoMode=true;saveSettings();saveState();renderAll();alert('تم تشغيل الوضع التجريبي.')}
-function exitDemo(){if(!appSettings.demoMode)return alert('الوضع التجريبي غير مفعّل.');const raw=localStorage.getItem(DEMO_SNAPSHOT_KEY)||getFirstAvailableStorageValue(LEGACY_DEMO_SNAPSHOT_KEYS);if(!raw)return alert('لم يتم العثور على نقطة أمان التجربة.');if(!confirm('سيتم إنهاء التجربة واستعادة بياناتك السابقة. هل أنت متأكد؟'))return;try{const snap=JSON.parse(raw),normalizedDemo=normalizeState(snap&&snap.data);if(!snap||!isValidStateShape(normalizedDemo))return alert('نقطة أمان التجربة غير صالحة.');state=normalizedDemo;profile=sanitizeProfile(snap.profile||DEFAULT_PROFILE);appSettings={...sanitizeSettings(snap.settings||DEFAULT_SETTINGS),demoMode:false};logActivity('إنهاء الوضع التجريبي','تمت استعادة بيانات المحل السابقة.','success');saveProfile();saveSettings();if(!saveState())return;localStorage.removeItem(DEMO_SNAPSHOT_KEY);LEGACY_DEMO_SNAPSHOT_KEYS.forEach(k=>localStorage.removeItem(k));renderAll();alert('تمت استعادة بياناتك السابقة بنجاح.')}catch(e){console.error(e);alert('تعذر استعادة بيانات التجربة.')}}
-function exportReportCSV(){const {from,to}=getReportRange();const rows=state.repairs.filter(r=>isDateInRange(r.date,from,to));const csv=[['اسم الزبون','رقم الهاتف','الجهاز','العطل','الحساب','الواصل','الباقي','الربح','التاريخ'],...rows.map(r=>[r.customerName||'',r.customerPhone||'',r.device||'',r.fault||'',r.customerTotal||0,r.paidAmount||0,Math.max(0,(r.customerTotal||0)-(r.paidAmount||0)),r.netProfit||0,r.date||''])].map(row=>row.map(v=>{let text=String(v??'');if(/^[=+\-@]/.test(text))text=`'${text}`;return `"${text.replace(/"/g,'""')}"`}).join(',')).join('\n');const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`sijil_report_${today()}.csv`;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);logActivity('تصدير تقرير','تم تصدير تقرير الصيانة بصيغة CSV.','success');saveState();renderActivity()}
-function checkDataHealth(){const groups=[['الصيانة',state.repairs],['الصندوق',state.cash],['الخسائر',state.losses],['الموردون',state.supplierPayments],['المصاريف',state.expenses],['النشاط',state.activity]],ids=new Set(),issues=[];let total=0;const push=msg=>{if(!issues.includes(msg))issues.push(msg)};groups.forEach(([name,arr])=>{total+=arr.length;arr.forEach((x,i)=>{if(!x||typeof x!=='object'){push(`${name}: سجل غير صالح #${i+1}`);return}if(x.id!=null){const id=String(x.id);if(ids.has(id))push(`معرّف مكرر: ${id}`);ids.add(id)}['amount','cost','partPrice','delivery','customerTotal','paidAmount'].forEach(k=>{if(x[k]!=null&&(!Number.isFinite(Number(x[k]))||Number(x[k])<0))push(`${name}: قيمة غير صالحة في ${k}`)});if(name==='الصيانة'){const due=Number(x.customerTotal||0),paid=Number(x.paidAmount||0);if(paid>due)push(`الصيانة: الواصل أكبر من الحساب (${x.device||'بدون جهاز'})`);if(Array.isArray(x.payments)){const sum=x.payments.reduce((a,p)=>a+Math.max(0,Number(p?.amount||0)),0);if(Math.abs(sum-paid)>1)push(`الصيانة: مجموع الدفعات لا يطابق الواصل (${x.device||'بدون جهاز'})`)}}})});const repairIds=new Set(state.repairs.map(r=>String(r.id))),expenseIds=new Set(state.expenses.map(e=>String(e.id)));state.cash.forEach(c=>{if(c.repairId&&!repairIds.has(String(c.repairId)))push(`الصندوق: حركة مرتبطة بصيانة غير موجودة (${c.repairId})`);if(c.expenseId&&!expenseIds.has(String(c.expenseId)))push(`الصندوق: حركة مرتبطة بمصروف غير موجود (${c.expenseId})`)});const result=document.getElementById('dataHealthResult');if(!result)return;result.textContent=issues.length?`تم الفحص: ${total} سجل. تم العثور على ${issues.length} ملاحظة: ${issues.slice(0,5).join(' · ')}${issues.length>5?' · والمزيد...':''}`:`تم الفحص بنجاح: ${total} سجل دون مشاكل بنيوية أو حسابية واضحة.`}
-function patchSettingsUIHandlers(){document.getElementById('exportReportBtn')?.addEventListener('click',exportReportCSV);document.getElementById('accentColor')?.addEventListener('input',e=>{appSettings.accentColor=e.target.value;applyV7Settings();saveSettings()});document.getElementById('animationsToggle')?.addEventListener('change',e=>{appSettings.animations=e.target.checked;applyV7Settings();saveSettings()});document.getElementById('compactModeToggle')?.addEventListener('change',e=>{appSettings.compactMode=e.target.checked;applyV7Settings();saveSettings()});document.getElementById('startDemoBtn')?.addEventListener('click',startDemo);document.getElementById('exitDemoBtn')?.addEventListener('click',exitDemo);document.getElementById('dataHealthBtn')?.addEventListener('click',checkDataHealth)}
-function enhanceHandlers(){document.getElementById('customerSearch')?.addEventListener('input',renderCustomers);document.getElementById('customerSearchClear')?.addEventListener('click',()=>{document.getElementById('customerSearch').value='';renderCustomers()});document.getElementById('globalSearchInput')?.addEventListener('input',renderGlobalSearch);document.getElementById('globalSearchBtn')?.addEventListener('click',renderGlobalSearch);document.getElementById('activitySearch')?.addEventListener('input',renderActivity);document.getElementById('activityClear')?.addEventListener('click',()=>{if(!confirm('سيتم حذف سجل النشاط فقط. هل أنت متأكد؟'))return;state.activity=[];saveState();renderActivity()});patchSettingsUIHandlers();}
-const originalRenderAll=renderAll;renderAll=function(){originalRenderAll();applyV7Settings();renderCustomers();renderActivity();renderGlobalSearch();if(document.getElementById('exitDemoBtn'))document.getElementById('exitDemoBtn').disabled=!appSettings.demoMode;if(document.getElementById('startDemoBtn'))document.getElementById('startDemoBtn').disabled=appSettings.demoMode;};
-const originalActivateSection=activateSection;activateSection=function(id){originalActivateSection(id);if(id==='customers')renderCustomers();if(id==='activity')renderActivity()};
-
-setDefaultDates();calculateNetProfit();updateDateText();enhanceHandlers();renderAll();if(shouldShowWelcome()||!appSettings.profileConfigured){openWelcome()}else{document.getElementById('welcomeOverlay').classList.add('hidden')}
-
-
-window.SIJIL_V12_BRIDGE={
-  getState:()=>state,
-  setState:v=>{state=normalizeState(v)},
-  getProfile:()=>profile,
-  setProfile:v=>{profile=sanitizeProfile(v)},
-  getSettings:()=>appSettings,
-  setSettings:v=>{appSettings=sanitizeSettings(v)},
-  saveState:()=>saveState(),
-  saveProfile:()=>saveProfile(),
-  saveSettings:()=>saveSettings(),
-  normalizeState,
-  isValidStateShape,
-  sanitizeProfile,
-  sanitizeSettings,
-  renderAll:()=>renderAll(),
-  appVersion:()=>APP_VERSION
-};
-</script>
-\n\n</body>
+</body>
 </html>
